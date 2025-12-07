@@ -4,3 +4,39 @@ services:
     build:
       context: .
       dockerfile: IdentityService/Dockerfile
+
+  apigateway:
+    image: ${DOCKER_REGISTRY-}apigateway
+    build:
+      context: .
+      dockerfile: apigateway/Dockerfile
+
+  cartservice:
+    image: ${DOCKER_REGISTRY-}cartservice
+    build:
+      context: .
+      dockerfile: cartservice/Dockerfile
+
+  orderservice:
+    image: ${DOCKER_REGISTRY-}orderservice
+    build:
+      context: .
+      dockerfile: orderservice/Dockerfile
+
+  productcatalogservice:
+    image: ${DOCKER_REGISTRY-}productcatalogservice
+    build:
+      context: .
+      dockerfile: productcatalogservice/Dockerfile
+
+  promotionservice:
+    image: ${DOCKER_REGISTRY-}promotionservice
+    build:
+      context: .
+      dockerfile: promotionservice/Dockerfile
+
+  userprofileservice:
+    image: ${DOCKER_REGISTRY-}userprofileservice
+    build:
+      context: .
+      dockerfile: userprofileservice/Dockerfile
