@@ -1,7 +1,7 @@
 
 using FluentValidation;
 using IdentityService.Data;
-using IdentityService.Features.Authantication.Commends.Login;
+using IdentityService.Features.Authantication.Commands.Login;
 using IdentityService.Shared.Behavior;
 using IdentityService.Shared.Repository;
 using IdentityService.Shared.UIitofwork;
