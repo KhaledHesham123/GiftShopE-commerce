@@ -11,5 +11,7 @@
 
         public IEnumerable<RefreshTokens> refreshTokens = new HashSet<RefreshTokens>();
 
+        public IEnumerable<UserToken> UserTokens { get; set; }= new HashSet<UserToken>();
+
     }
 }
