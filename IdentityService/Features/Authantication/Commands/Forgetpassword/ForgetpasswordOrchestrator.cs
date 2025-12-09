@@ -1,17 +1,22 @@
 ﻿using Domain_Layer.Respones;
+using IdentityService.Features.UserToken.Commands.CreateUserToken;
+using IdentityService.Shared.Entites;
+using IdentityService.Shared.Services.EmailVerificationServices;
 using MediatR;
 
 namespace IdentityService.Features.Authantication.Commands.Forgetpassword
 {
-    public record ForgetpasswordOrchestrator(string Email) : IRequest<RequestRespones<ForgotPasswordDTO>>;
+    public record ForgetpasswordOrchestrator(string Email,string BaseUrl) : IRequest<RequestRespones<ForgotPasswordDTO>>;
 
     public class ForgetpasswordOrchestratorHandler:IRequestHandler<ForgetpasswordOrchestrator,RequestRespones<ForgotPasswordDTO>>
     {
         private readonly IMediator mediator;
+        private readonly IEMailSettings mailSettings;
 
-        public ForgetpasswordOrchestratorHandler(IMediator mediator)
+        public ForgetpasswordOrchestratorHandler(IMediator mediator, IEMailSettings mailSettings )
         {
             this.mediator = mediator;
+            this.mailSettings = mailSettings;
         }
         public async Task<RequestRespones<ForgotPasswordDTO>> Handle(ForgetpasswordOrchestrator request, CancellationToken cancellationToken)
         {
@@ -22,11 +27,41 @@ namespace IdentityService.Features.Authantication.Commands.Forgetpassword
                 return RequestRespones<ForgotPasswordDTO>.Fail("there is no user with this Email", 404);
             }
 
-            return RequestRespones<ForgotPasswordDTO>.Fail("there is no user with this Email", 404);
+            var code = GenerateVerificationCode();
+
+            int epirationInMinutes = 1;
+
+            var userResetPasswordToken = await mediator.Send(new CreateUserTokenCommand(userRespone.Data.Id, code, epirationInMinutes), cancellationToken);
+
+            var resetUrl = $"{request.BaseUrl}/account/resetpassword?email={request.Email}&token={code}";
+
+            var emial = new Email
+            {
+                subject = "Reset Your Password",
+                body = resetUrl,
+                to = request.Email
+            };
+
+            mailSettings.sendEmail(emial);  
+
+            var emialDto = new ForgotPasswordDTO
+            {
+                Email = request.Email,
+                ExpirationInMinutes = epirationInMinutes
+            };
+
+            return RequestRespones<ForgotPasswordDTO>.Success(emialDto);
 
 
         }
+        private string GenerateVerificationCode()
+        {
+            var random = new Random();
+            return random.Next(100000, 999999).ToString();
+        }
     }
+
+    
 
 
 }
