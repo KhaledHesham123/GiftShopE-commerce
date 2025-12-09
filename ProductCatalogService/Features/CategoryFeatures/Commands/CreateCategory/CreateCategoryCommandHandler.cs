@@ -5,11 +5,11 @@ using ProductCatalogService.Shared.Interfaces;
 
 namespace ProductCatalogService.Features.CategoryFeatures.Commands.CreateCategory
 {
-    public class CreateCategoryHandler : IRequestHandler<CreateCategoryCommand, Result<CreateCategoryDTO>>
+    public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, Result<CreateCategoryDTO>>
     {
         private readonly IRepository<Category> _categoryRepository;
 
-        public CreateCategoryHandler(IRepository<Category> categoryRepository)
+        public CreateCategoryCommandHandler(IRepository<Category> categoryRepository)
         {
             _categoryRepository = categoryRepository;
         }

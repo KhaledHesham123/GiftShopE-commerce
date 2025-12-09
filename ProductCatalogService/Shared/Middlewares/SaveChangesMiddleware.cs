@@ -1,24 +1,24 @@
-﻿using ProductCatalogService.Data.DBContexts;
+﻿using ProductCatalogService.Shared.Interfaces;
 
 namespace ProductCatalogService.Shared.Middlewares
 {
     public class SaveChangesMiddleware
     {
         private readonly RequestDelegate _next;
+
         public SaveChangesMiddleware(RequestDelegate next)
         {
             _next = next;
         }
-        public async Task InvokeAsync(HttpContext context, ProductCatalogDbContext _productCatalogDbContext)
+
+        public async Task InvokeAsync(HttpContext context, IUnitOfWork _unitOfWork)
         {
             await _next(context);
 
-            if(context.Response.StatusCode is >= 200 and < 300)
+            if (context.Response.StatusCode is >= 200 and < 300)
             {
-                if (_productCatalogDbContext.ChangeTracker.HasChanges())
-                    await _productCatalogDbContext.SaveChangesAsync();
+                await _unitOfWork.SaveChangesAsync();
             }
-            
         }
     }
 }
