@@ -42,12 +42,13 @@ namespace Domain_Layer.Respones
                 Message = Message
             };
         }
-        public static EndpointRespones<T> Fail(string message, int statusCode, int StatusCode)
+        public static EndpointRespones<T> Fail(string message, int statusCode)
         {
             return new EndpointRespones<T>(message, false)
             {
                 StatusCode = statusCode
             };
         }
+
     }
 }
