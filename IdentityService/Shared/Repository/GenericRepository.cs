@@ -75,14 +75,15 @@ namespace IdentityService.Shared.Repository
         }
 
 
-        public async Task DeleteAsync(Guid id)
+        public void  Delete(T entity)
         {
-            var entity = await _dbSet.FirstOrDefaultAsync(e => e.Id == id);
-            if (entity != null)
-            {
-                entity.IsDeleted = true;
-                _dbSet.Update(entity);
-            }
+            _dbSet.Remove(entity);
+
+        }
+
+        public void DeleteRange(IEnumerable<T> entities)
+        {
+            _dbSet.RemoveRange(entities);
         }
 
 

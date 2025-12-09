@@ -29,12 +29,10 @@ namespace IdentityService.Features.Authantication.Commands.Forgetpassword
 
             var code = GenerateVerificationCode();
 
-            int epirationInMinutes = 1;
 
-            var userResetPasswordToken = await mediator.Send(new CreateUserTokenCommand(userRespone.Data.Id, code, epirationInMinutes), cancellationToken);
+            var userResetPasswordToken = await mediator.Send(new CreateUserTokenCommand(userRespone.Data.Id, code,10 ), cancellationToken);
 
-            var resetUrl = $"{request.BaseUrl}/account/resetpassword?email={request.Email}&token={code}";
-
+            var resetUrl = $"{request.BaseUrl}/resetpassword-form?email={request.Email}&token={code}";
             var emial = new Email
             {
                 subject = "Reset Your Password",
@@ -47,7 +45,7 @@ namespace IdentityService.Features.Authantication.Commands.Forgetpassword
             var emialDto = new ForgotPasswordDTO
             {
                 Email = request.Email,
-                ExpirationInMinutes = epirationInMinutes
+                ExpirationInMinutes = 10
             };
 
             return RequestRespones<ForgotPasswordDTO>.Success(emialDto);
