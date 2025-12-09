@@ -1,8 +1,9 @@
 namespace ProductCatalogService.Shared.Interfaces
 {
-    public interface IUnitOfWork : IDisposable
-    {   
-        Task<int> SaveChangesAsync();
+    public interface IUnitOfWork
+    {
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+
         Task BeginTransactionAsync();
         Task CommitTransactionAsync();
         Task RollbackTransactionAsync();
