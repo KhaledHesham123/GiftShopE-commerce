@@ -1,10 +1,11 @@
 
 
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using ProductCatalogService.Data.DBContexts;
 using ProductCatalogService.Shared.Entities;
 using ProductCatalogService.Shared.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using ProductCatalogService.Data.DBContexts;
 
 namespace ProductCatalogService.Shared.Repositories
 {
@@ -18,38 +19,38 @@ namespace ProductCatalogService.Shared.Repositories
             _context = context;
             _dbSet = context.Set<T>();
         }
-        public async Task<T?> GetByCriteriaAsync(Expression<Func<T, bool>> predicate)
+        public async Task<T?> GetByCriteriaAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken)
         {
             return await _dbSet.AsNoTracking()
-                               .FirstOrDefaultAsync(predicate);
+                               .FirstOrDefaultAsync(predicate, cancellationToken);
         }
         public IQueryable<T> GetQueryableByCriteria(Expression<Func<T, bool>> predicate)
         {
             return _dbSet.AsNoTracking().Where(predicate);
         }
-        public virtual async Task<T?> GetByIdAsync(Guid id)
+        public virtual async Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
-            return await _dbSet.FindAsync(id);
+            return await _dbSet.FindAsync(id, cancellationToken);
         }
 
-        public virtual async Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken)
         {
-            return await _dbSet.ToListAsync();
+            return await _dbSet.ToListAsync(cancellationToken);
         }
 
-        public virtual async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
+        public virtual async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken)
         {
-            return await _dbSet.Where(predicate).ToListAsync();
+            return await _dbSet.Where(predicate).ToListAsync(cancellationToken);
         }
 
-        public virtual async Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate)
+        public virtual async Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken)
         {
-            return await _dbSet.FirstOrDefaultAsync(predicate);
+            return await _dbSet.FirstOrDefaultAsync(predicate, cancellationToken);
         }
 
-        public virtual async Task<T> AddAsync(T entity)
+        public virtual async Task<T> AddAsync(T entity, CancellationToken cancellationToken)
         {
-            await _dbSet.AddAsync(entity);
+            await _dbSet.AddAsync(entity, cancellationToken);
             return entity;
         }
 
@@ -59,9 +60,9 @@ namespace ProductCatalogService.Shared.Repositories
             return await Task.FromResult(entity);
         }
 
-        public virtual async Task DeleteAsync(Guid id)
+        public virtual async Task DeleteAsync(Guid id, CancellationToken cancellationToken)
         {
-            var entity = await _dbSet.FindAsync(id);
+            var entity = await _dbSet.FindAsync(id, cancellationToken);
             if (entity != null)
             {
                 entity.IsDeleted = true;
@@ -69,23 +70,23 @@ namespace ProductCatalogService.Shared.Repositories
             }
         }
 
-        public virtual async Task<bool> ExistsAsync(Guid id)
+        public virtual async Task<bool> ExistsAsync(Guid id, CancellationToken cancellationToken)
         {
-            return await _dbSet.AnyAsync(e => e.Id == id);
+            return await _dbSet.AnyAsync(e => e.Id == id, cancellationToken);
         }
-        public async Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate)
+        public async Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken)
         {
-            return await _dbSet.AnyAsync(predicate);
-        }
-
-        public virtual async Task<int> CountAsync()
-        {
-            return await _dbSet.CountAsync();
+            return await _dbSet.AnyAsync(predicate, cancellationToken);
         }
 
-        public virtual async Task<int> CountAsync(Expression<Func<T, bool>> predicate)
+        public virtual async Task<int> CountAsync(CancellationToken cancellationToken)
         {
-            return await _dbSet.CountAsync(predicate);
+            return await _dbSet.CountAsync(cancellationToken);
+        }
+
+        public virtual async Task<int> CountAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken)
+        {
+            return await _dbSet.CountAsync(predicate, cancellationToken);
         }
 
         public async Task SaveChanges()
@@ -100,7 +101,34 @@ namespace ProductCatalogService.Shared.Repositories
 
         public IQueryable<T> GetAll() => _dbSet;
 
-    
+
+        public void SaveInclude(T entity, params string[] includedProperties)
+        {
+            var localEntity = _dbSet.Local.FirstOrDefault(e => e.Id == entity.Id);
+            EntityEntry entry;
+
+            if (localEntity is null)
+            {
+                entry = _context.Entry(entity);
+            }
+            else
+            {
+                entry = _context.ChangeTracker.Entries<T>().First(e => e.Entity.Id == entity.Id);
+            }
+
+
+            foreach (var property in entry.Properties)
+            {
+                if (includedProperties.Contains(property.Metadata.Name))
+                {
+                    property.IsModified = true;
+                }
+                else
+                {
+                    property.IsModified = false;
+                }
+            }
+        }
     }
 }
 

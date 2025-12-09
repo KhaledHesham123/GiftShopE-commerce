@@ -95,6 +95,8 @@ namespace ProductCatalogService
 
             app.UseAuthorization();
 
+            app.UseMiddleware<SaveChangesMiddleware>();
+
 
             app.MapControllers();
 

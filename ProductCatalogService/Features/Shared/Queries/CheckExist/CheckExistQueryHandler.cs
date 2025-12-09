@@ -15,7 +15,7 @@ namespace ProductCatalogService.Features.Shared.Queries.CheckExist
 
         public async Task<Result<bool>> Handle(CheckExistQuery<T> request, CancellationToken cancellationToken)
         {
-            var existsEntity = await _repository.ExistsAsync(request.Predicate);
+            var existsEntity = await _repository.ExistsAsync(request.Predicate, cancellationToken);
             return Result<bool>.Response(existsEntity);
         }
     }
