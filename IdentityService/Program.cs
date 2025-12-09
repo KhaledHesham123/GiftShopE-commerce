@@ -1,9 +1,12 @@
 
 using FluentValidation;
 using IdentityService.Data;
+using IdentityService.Features.Authantication;
 using IdentityService.Features.Authantication.Commands.Login;
 using IdentityService.Shared.Behavior;
+using IdentityService.Shared.Configurations;
 using IdentityService.Shared.Repository;
+using IdentityService.Shared.Services.EmailVerificationServices;
 using IdentityService.Shared.UIitofwork;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -34,7 +37,8 @@ namespace IdentityService
 
             builder.Services.AddScoped<IunitofWork, UnitofWork>();
 
-
+            builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+            builder.Services.AddTransient<IEMailSettings, EMailSettings>();
             builder.Services.AddMediatR(cfg =>
             {
                 cfg.RegisterServicesFromAssembly(typeof(LoginCommend).Assembly);
@@ -42,12 +46,15 @@ namespace IdentityService
 
             builder.Services.AddValidatorsFromAssemblyContaining<LoginCommendValidator>();
 
-            builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            builder.Services.AddTransient(typeof(IPipelineBehavior<,>),typeof(ValidationBehavior<,>));
 
-            builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(TransactionBehavior<,>));
+
 
 
             var app = builder.Build();
+
+
+            app.MapAuthanticationEndpoints();
 
             app.UseStaticFiles();
 
