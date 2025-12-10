@@ -49,8 +49,8 @@ namespace ProductCatalogService.Shared.Repositories
 
         public void Dispose()
         {
-            _currentTransaction?.Dispose();
-            _context.Dispose();
+            //_currentTransaction?.Dispose();
+            //_context.Dispose();
         }
     }
 }
