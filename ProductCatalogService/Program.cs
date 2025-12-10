@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProductCatalogService.Data.DBContexts;
 using ProductCatalogService.Data.Seeders;
+using ProductCatalogService.Features.Occasion;
 using ProductCatalogService.Features.Occasion.Add.AddOccasion.Dto;
 using ProductCatalogService.Features.Occasion.Add.AddOccasionQr;
 using ProductCatalogService.Features.Shared;
@@ -77,6 +78,8 @@ namespace ProductCatalogService
             
             var app = builder.Build();
             app.UseMiddleware<ExceptionHandlingMiddleware>();
+
+            app.MapOccasionEndpoints();
 
             // Seed
             using (var scope = app.Services.CreateScope())
