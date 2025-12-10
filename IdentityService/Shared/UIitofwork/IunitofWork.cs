@@ -1,7 +1,8 @@
 ﻿namespace IdentityService.Shared.UIitofwork
 {
-    public interface IunitofWork: IDisposable
+    public interface IUnitofWork: IDisposable
     {
+        Task<int> SaveChangesAsync();
         Task BeginTransactionAsync();
 
         Task CommitTransactionAsync();

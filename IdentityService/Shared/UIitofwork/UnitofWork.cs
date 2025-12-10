@@ -1,9 +1,10 @@
 ﻿using IdentityService.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace IdentityService.Shared.UIitofwork
 {
-    public class UnitofWork:IunitofWork
+    public class UnitofWork:IUnitofWork
     {
         private readonly ApplicationDbcontext _dbContext;
         public IDbContextTransaction? _Transaction { get; set; }
@@ -11,6 +12,10 @@ namespace IdentityService.Shared.UIitofwork
         public UnitofWork(ApplicationDbcontext _dbContext)
         {
             this._dbContext = _dbContext;
+        }
+        public async Task<int> SaveChangesAsync()
+        {
+            return await _dbContext.SaveChangesAsync();
         }
 
         public async Task BeginTransactionAsync()
@@ -38,9 +43,6 @@ namespace IdentityService.Shared.UIitofwork
             }
 
         }
-
-
-
         public void Dispose()
         {
             _Transaction?.Dispose();

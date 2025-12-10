@@ -1,11 +1,12 @@
 ﻿using IdentityService.Data;
 using IdentityService.Shared.Entites;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace IdentityService.Shared.Repository
 {
-    public class GenericRepository<T>: IGenaricRepository<T>where T : BaseEntity
+    public class GenericRepository<T>: IGenericRepository<T>where T : BaseEntity
     {
 
         private readonly DbSet<T> _dbSet;
@@ -21,7 +22,6 @@ namespace IdentityService.Shared.Repository
         public IQueryable<T> GetAll()
         {
             return applicationDbcontext.Set<T>().Where(e => e.IsDeleted == false).AsQueryable();
-
         }
 
         public async Task<IEnumerable<T>> GetAllAsync()
@@ -33,9 +33,12 @@ namespace IdentityService.Shared.Repository
         public async Task<T?> GetByCriteriaAsync(Expression<Func<T, bool>> predicate)
         {
             return await _dbSet.FirstOrDefaultAsync(predicate);
-
         }
 
+        public async Task<IEnumerable<T>> GetAllByCriteriaAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _dbSet.Where(predicate).ToListAsync();
+        }
         public async Task<T?> GetByIdAsync(Guid id)
         {
             return await _dbSet.FindAsync(id);
@@ -45,6 +48,18 @@ namespace IdentityService.Shared.Repository
         {
             return _dbSet.AsNoTracking().Where(predicate);
         }
+
+
+        public IQueryable<T> GetQueryableByCriteriaAndInclude(Expression<Func<T, bool>> predicate , params Expression<Func<T, object>>[] includeExpressions) 
+        {
+            var query = _dbSet.AsNoTracking().Where(predicate);
+            foreach (var includeExpression in includeExpressions)
+            {
+                query = query.Include(includeExpression);
+            }
+            return query;
+        }
+
 
 
         public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
@@ -57,7 +72,6 @@ namespace IdentityService.Shared.Repository
             return await _dbSet.FirstOrDefaultAsync(predicate);
         }
 
-
         public Task<int> CountAsync()
         {
             throw new NotImplementedException();
@@ -68,12 +82,10 @@ namespace IdentityService.Shared.Repository
             return await _dbSet.CountAsync(predicate);
         }
 
-
         public async Task AddAsync(T entity)
         {
             await _dbSet.AddAsync(entity);
         }
-
 
         public async Task DeleteAsync(Guid id)
         {
@@ -85,25 +97,15 @@ namespace IdentityService.Shared.Repository
             }
         }
 
-
         public void Update(T entity)
         {
             _dbSet.Update(entity);
         }
 
-
-
-
         public async Task SaveChangesAsync()
         {
             await applicationDbcontext.SaveChangesAsync();
         }
-
-
-
-
-
-
 
         public async Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate)
         {

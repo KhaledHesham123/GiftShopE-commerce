@@ -6,11 +6,11 @@ namespace IdentityService.Shared.Behavior
 {
     public class TransactionBehavior<TRequest, TResponse>: IPipelineBehavior<TRequest, TResponse>where TRequest : ICommand
     {
-        private readonly IunitofWork unitOfWork;
+        private readonly IUnitofWork unitOfWork;
         private readonly ILogger<TransactionBehavior<TRequest, TResponse>> logger;
 
         public TransactionBehavior(
-            IunitofWork unitOfWork,
+            IUnitofWork unitOfWork,
             ILogger<TransactionBehavior<TRequest, TResponse>> logger)
         {
             this.unitOfWork = unitOfWork;

@@ -10,7 +10,7 @@ namespace IdentityService.Features.Authantication.Commands.Forgetpassword
         {
             app.MapPost("/authentication/Forgetpassword",
                 async (
-                    LoginCommend command,
+                    LoginCommand command,
                     IMediator mediator,
                     CancellationToken ct) =>
                 {

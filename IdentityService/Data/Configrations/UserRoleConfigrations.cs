@@ -8,7 +8,7 @@ namespace IdentityService.Data.Configrations
     {
         public void Configure(EntityTypeBuilder<UserRole> builder)
         {
-            builder.HasKey(x => new { x.Roleid, x.Userid });
+            builder.HasKey(x => new { x.RoleId, x.UserId });
         }
     }
 }
