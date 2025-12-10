@@ -87,14 +87,16 @@ namespace IdentityService.Shared.Repository
             await _dbSet.AddAsync(entity);
         }
 
-        public async Task DeleteAsync(Guid id)
+
+        public void  Delete(T entity)
         {
-            var entity = await _dbSet.FirstOrDefaultAsync(e => e.Id == id);
-            if (entity != null)
-            {
-                entity.IsDeleted = true;
-                _dbSet.Update(entity);
-            }
+            _dbSet.Remove(entity);
+
+        }
+
+        public void DeleteRange(IEnumerable<T> entities)
+        {
+            _dbSet.RemoveRange(entities);
         }
 
         public void Update(T entity)
@@ -117,7 +119,7 @@ namespace IdentityService.Shared.Repository
             var existingEntity = _dbSet.Local.FirstOrDefault(e => e.Id == entity.Id);
             if (existingEntity == null)
             {
-                existingEntity = _dbSet.AsNoTracking().FirstOrDefault(e => e.Id == entity.Id);
+                existingEntity = _dbSet.FirstOrDefault(e => e.Id == entity.Id);
                 if (existingEntity == null)
                     throw new Exception($"Entity of type {typeof(T).Name} with Id {entity.Id} not found.");
 

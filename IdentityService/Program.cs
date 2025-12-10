@@ -1,12 +1,15 @@
 using FluentValidation;
 using IdentityService.Data;
 using IdentityService.Data.DataSeed;
+using IdentityService.Features.Authantication;
 using IdentityService.Features.Authantication.Commands.Login;
 using IdentityService.Features.Authantication.Commands.SignUp;
 using IdentityService.Shared.Behavior;
-using IdentityService.Shared.CutomMiddlewares;
+using IdentityService.Shared.Configurations;
+using IdentityService.Shared.Middlewares;
 using IdentityService.Shared.Repository;
 using IdentityService.Shared.Services;
+using IdentityService.Shared.Services.EmailVerificationServices;
 using IdentityService.Shared.UIitofwork;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -34,6 +37,10 @@ namespace IdentityService
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddScoped<IUnitofWork, UnitofWork>();
             builder.Services.AddScoped<IAuthService, AuthService>();
+
+            builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+            builder.Services.AddTransient<IEMailSettings, EMailSettings>();
+
             builder.Services.AddMediatR(cfg =>
             {
                 cfg.RegisterServicesFromAssembly(typeof(LoginCommand).Assembly);
@@ -67,12 +74,14 @@ namespace IdentityService
                   };
               });
             builder.Services.AddAuthorization();
-
             builder.Services.AddMemoryCache();
+            builder.Services.AddTransient<GlobalExceptionHandler>();
 
             var app = builder.Build();
 
-            app.UseMiddleware<ExceptionHandlingMiddleware>();
+            app.UseMiddleware<GlobalExceptionHandler>();
+
+            app.MapAuthanticationEndpoints();
 
             using (var scope = app.Services.CreateScope())
             {

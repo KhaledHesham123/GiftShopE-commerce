@@ -8,46 +8,38 @@ namespace Domain_Layer.Respones
 {
     public class EndpointRespones<T>
     {
-        public T Data { get; set; } = default!;
-
-        public bool IsSuccess { get; set; } = false;
-
-        public int StatusCode { get; set; } = 0;
-
-        public string Message { get; set; } = string.Empty;
+        public bool IsSuccess { get; set; }
+        public string? Message { get; set; }
+        public T? Data { get; set; }
+        public List<string> Errors { get; set; } = new();
+        public int StatusCode { get; set; }
 
 
-
-
-        public EndpointRespones(T data, string message = "", bool isSuccess = true)
+        public static EndpointRespones<T> Result(bool IsSuccess)
         {
-            Data = data;
-            Message = message;
-            IsSuccess = isSuccess;
-        }
-        public EndpointRespones(string message = "", bool isSuccess = true)
-        {
-
-            Message = message;
-            IsSuccess = isSuccess;
+            return new EndpointRespones<T> { IsSuccess = IsSuccess };
         }
 
-        public static EndpointRespones<T> Success(T data, int statusCode = 200, string Message = "")
+        public static EndpointRespones<T> Success(T data, string? message = null, int statusCode = 200)
         {
             return new EndpointRespones<T>
             {
-                Data = data,
                 IsSuccess = true,
-                StatusCode = statusCode,
-                Message = Message
-            };
-        }
-        public static EndpointRespones<T> Fail(string message, int statusCode, int StatusCode)
-        {
-            return new EndpointRespones<T>(message, false)
-            {
+                Data = data,
+                Message = message,
                 StatusCode = statusCode
             };
         }
+        public static EndpointRespones<T> Fail(string message = "", List<string>? Errors = null, int statuscode = 400)
+        {
+            return new EndpointRespones<T>
+            {
+                Errors = Errors,
+                IsSuccess = false,
+                StatusCode = statuscode,
+                Message = message
+            };
+        }
+
     }
 }

@@ -32,7 +32,7 @@ namespace IdentityService.Features.User.Quries.GetuserbyEmail
                 return RequestRespones<UserToReturnDto>.Fail("User not found", 404);
             }
            
-            return RequestRespones<UserToReturnDto>.Success(user, 200, "User retrieved successfully");
+            return RequestRespones<UserToReturnDto>.Success(user,  "User retrieved successfully");
 
         }
     }
