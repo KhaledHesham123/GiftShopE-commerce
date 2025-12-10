@@ -7,7 +7,7 @@ namespace ProductCatalogService.Shared.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ProductCatalogDbContext _context;
-        private IDbContextTransaction? _transaction;
+        private IDbContextTransaction? _currentTransaction;
 
         public UnitOfWork(ProductCatalogDbContext context)
         {
@@ -15,39 +15,41 @@ namespace ProductCatalogService.Shared.Repositories
 
         }
 
-        public async Task<int> SaveChangesAsync()
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
         {
-            return await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync(cancellationToken);
         }
 
         public async Task BeginTransactionAsync()
         {
-            _transaction = await _context.Database.BeginTransactionAsync();
+            if (_currentTransaction is not null)
+                return;
+            _currentTransaction = await _context.Database.BeginTransactionAsync();
         }
 
         public async Task CommitTransactionAsync()
         {
-            if (_transaction != null)
-            {
-                await _transaction.CommitAsync();
-                await _transaction.DisposeAsync();
-                _transaction = null;
-            }
+            if (_currentTransaction is null)
+                return;
+
+            await _currentTransaction.CommitAsync();
+            await _currentTransaction.DisposeAsync();
+            _currentTransaction = null;
         }
 
         public async Task RollbackTransactionAsync()
         {
-            if (_transaction != null)
-            {
-                await _transaction.RollbackAsync();
-                await _transaction.DisposeAsync();
-                _transaction = null;
-            }
+            if (_currentTransaction is null)
+                return;
+
+            await _currentTransaction.RollbackAsync();
+            await _currentTransaction.DisposeAsync();
+            _currentTransaction = null;
         }
 
         public void Dispose()
         {
-            _transaction?.Dispose();
+            _currentTransaction?.Dispose();
             _context.Dispose();
         }
     }
