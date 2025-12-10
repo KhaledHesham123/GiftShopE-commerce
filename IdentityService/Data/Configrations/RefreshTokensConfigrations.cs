@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace IdentityService.Data.Configrations
 {
-    public class RefreshTokensConfigrations: IEntityTypeConfiguration<RefreshTokens>
+    public class RefreshTokensConfigrations: IEntityTypeConfiguration<RefreshToken>
     {
-        public void Configure(EntityTypeBuilder<RefreshTokens> builder)
+        public void Configure(EntityTypeBuilder<RefreshToken> builder)
         {
-            builder.Property(rt => rt.userid)
-                  .IsRequired();
+            //builder.Property(rt => rt.userId)
+            //      .IsRequired();
 
 
             builder.Property(rt => rt.Token)
@@ -17,8 +17,8 @@ namespace IdentityService.Data.Configrations
                    .HasMaxLength(500);
 
 
-            builder.Property(rt => rt.IsUsed)
-                   .HasDefaultValue(false);
+            //builder.Property(rt => rt.IsUsed)
+            //       .HasDefaultValue(false);
 
             builder.Property(rt => rt.ExpiresOn)
                    .IsRequired();

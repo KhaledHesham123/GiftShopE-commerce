@@ -11,9 +11,9 @@ namespace IdentityService.Features.User.Quries.GetuserbyEmail
 
     public class GetUserByEmailQueryHandler : IRequestHandler<GetUserByEmailQuery, RequestRespones<UserToReturnDto>>
     {
-        private readonly IGenaricRepository<Shared.Entites.User> genaricRepository;
+        private readonly IGenericRepository<Shared.Entites.User> genaricRepository;
 
-        public GetUserByEmailQueryHandler(IGenaricRepository<Shared.Entites.User> genaricRepository)
+        public GetUserByEmailQueryHandler(IGenericRepository<Shared.Entites.User> genaricRepository)
         {
             this.genaricRepository = genaricRepository;
         }
@@ -24,7 +24,7 @@ namespace IdentityService.Features.User.Quries.GetuserbyEmail
                 {
                     Id = x.Id,
                     Email = x.Email,
-                    Username = x.Username
+                    //Username = x.Username
                 }).FirstOrDefaultAsync(cancellationToken);
 
             if (user == null)

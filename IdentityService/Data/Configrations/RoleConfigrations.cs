@@ -13,7 +13,7 @@ namespace IdentityService.Data.Configrations
                    .IsRequired()
                    .HasMaxLength(50);
 
-            builder.HasMany(x => x.UserRoles).WithOne(x => x.role).HasForeignKey(x => x.Roleid).OnDelete(DeleteBehavior.Restrict);
+            builder.HasMany(x => x.UserRoles).WithOne(x => x.Role).HasForeignKey(x => x.RoleId).OnDelete(DeleteBehavior.Restrict);
 
 
         }

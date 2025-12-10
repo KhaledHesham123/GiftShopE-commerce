@@ -1,16 +1,19 @@
-﻿namespace IdentityService.Shared.Entites
+﻿using IdentityService.Shared.Enums;
+
+namespace IdentityService.Shared.Entites
 {
     public class User:BaseEntity
     {
-        public string Username { get; set; } = default!;
+        public string FirstName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
         public string Email { get; set; } = default!;
         public string PasswordHash { get; set; } = default!;
-        public bool EmailConfirmed { get; set; } = false;
+        public string PhoneNumber { get; set; } = string.Empty;
+        public Gender Gender { get; set; } 
+        //public bool IsEmailConfirmed { get; set; } = false;
+        public ICollection<UserRole> UserRoles { get; set; } = new HashSet<UserRole>();
 
-        public IEnumerable<UserRole> UserRoles { get; set; } = new HashSet<UserRole>();
-
-        public IEnumerable<RefreshTokens> refreshTokens = new HashSet<RefreshTokens>();
-
+        public ICollection<RefreshToken> RefreshTokens = new HashSet<RefreshToken>();
         public IEnumerable<UserToken> UserTokens { get; set; }= new HashSet<UserToken>();
 
     }

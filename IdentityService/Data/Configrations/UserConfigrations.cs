@@ -14,7 +14,10 @@ namespace IdentityService.Data.Configrations
 
             builder.HasKey(u => u.Id);
 
-            builder.Property(u => u.Username)
+            builder.Property(u => u.FirstName)
+                   .IsRequired()
+                   .HasMaxLength(50);
+            builder.Property(u => u.LastName)
                    .IsRequired()
                    .HasMaxLength(50);
 
@@ -25,28 +28,18 @@ namespace IdentityService.Data.Configrations
             builder.Property(u => u.PasswordHash)
                    .IsRequired();
 
-
-
-            builder.Property(u => u.EmailConfirmed)
-                   .HasDefaultValue(false);
-
-
-
+            //builder.Property(u => u.IsEmailConfirmed)
+            //       .HasDefaultValue(false);
 
             builder.HasIndex(u => u.Email)
                    .IsUnique();
 
-            builder.HasIndex(u => u.Username)
-                   .IsUnique();
+            //builder.HasIndex(u => u.Username)
+            //       .IsUnique();
 
+            builder.HasMany(x => x.UserRoles).WithOne(x => x.User).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
 
-
-            builder.HasMany(x => x.UserRoles).WithOne(x => x.user).HasForeignKey(x => x.Userid).OnDelete(DeleteBehavior.Cascade);
-
-
-
-            builder.HasMany(x => x.refreshTokens).WithOne(x => x.User).HasForeignKey(x => x.userid).OnDelete(DeleteBehavior.Cascade);
-
+            //builder.HasMany(x => x.RefreshTokens).WithOne(x => x.User).HasForeignKey(x => x.userid).OnDelete(DeleteBehavior.Cascade);
 
         }
     }

@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace IdentityService.Shared.Repository
 {
-    public interface IGenaricRepository<T> where T : BaseEntity
+    public interface IGenericRepository<T> where T : BaseEntity
     {
         Task<T?> GetByIdAsync(Guid id);
         Task<IEnumerable<T>> GetAllAsync();
@@ -20,10 +20,8 @@ namespace IdentityService.Shared.Repository
         Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate);
         Task<int> CountAsync(Expression<Func<T, bool>> predicate);
         Task<T?> GetByCriteriaAsync(Expression<Func<T, bool>> predicate);
-
         void SaveInclude(T entity);
-
-
         Task SaveChangesAsync();
+        IQueryable<T> GetQueryableByCriteriaAndInclude(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeExpressions);
     }
 }
