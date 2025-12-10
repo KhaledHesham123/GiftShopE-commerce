@@ -5,6 +5,7 @@ using IdentityService.Features.Authantication;
 using IdentityService.Features.Authantication.Commands.Login;
 using IdentityService.Shared.Behavior;
 using IdentityService.Shared.Configurations;
+using IdentityService.Shared.Middlewares;
 using IdentityService.Shared.Repository;
 using IdentityService.Shared.Services.EmailVerificationServices;
 using IdentityService.Shared.UIitofwork;
@@ -49,10 +50,11 @@ namespace IdentityService
             builder.Services.AddTransient(typeof(IPipelineBehavior<,>),typeof(ValidationBehavior<,>));
 
 
-
+            builder.Services.AddTransient<GlobalExceptionHandler>();
 
             var app = builder.Build();
 
+            app.UseMiddleware<GlobalExceptionHandler>();
 
             app.MapAuthanticationEndpoints();
 

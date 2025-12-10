@@ -116,7 +116,7 @@ namespace IdentityService.Shared.Repository
             var existingEntity = _dbSet.Local.FirstOrDefault(e => e.Id == entity.Id);
             if (existingEntity == null)
             {
-                existingEntity = _dbSet.AsNoTracking().FirstOrDefault(e => e.Id == entity.Id);
+                existingEntity = _dbSet.FirstOrDefault(e => e.Id == entity.Id);
                 if (existingEntity == null)
                     throw new Exception($"Entity of type {typeof(T).Name} with Id {entity.Id} not found.");
 

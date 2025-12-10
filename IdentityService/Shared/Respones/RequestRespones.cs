@@ -9,46 +9,38 @@ namespace Domain_Layer.Respones
 {
     public class RequestRespones<T>
     {
-        public T Data { get; set; } = default!;
 
-        public bool IsSuccess { get; set; } = false;
-
-        public int StatusCode { get; set; } = 0;    
-
-        public string Message { get; set; } = string.Empty;
-
-      
+        public bool IsSuccess { get; set; }
+        public string? Message { get; set; }
+        public T? Data { get; set; }
+        public List<string> Errors { get; set; } = new();
+        public int StatusCode { get; set; }
 
 
-        public RequestRespones(T data, string message = "", bool isSuccess = true)
+        public static RequestRespones<T> Result(bool IsSuccess,string message="") 
         {
-            Data = data;
-            Message = message;
-            IsSuccess = isSuccess;
-        }
-        public RequestRespones(string message = "", bool isSuccess = true)
-        {
-
-            Message = message;
-            IsSuccess = isSuccess;
+            return new RequestRespones<T> { IsSuccess = IsSuccess };
         }
 
-        public static RequestRespones<T>Success(T data, int statusCode=200, string Message="")
+        public static RequestRespones<T> Success(T data, string? message = null, int statusCode = 200)
         {
             return new RequestRespones<T>
             {
-                Data = data,
                 IsSuccess = true,
-                StatusCode = statusCode,
-                Message= Message
+                Data = data,
+                Message = message,
+                StatusCode = statusCode
             };
         }
-        public static RequestRespones<T> Fail(string message, int statusCode)
+        public static RequestRespones<T> Fail(string message="", int statuscode = 400, List<string>? Errors=null)
         {
-            return new RequestRespones<T>(message, false) 
-            {
-                StatusCode= statusCode
+            return new RequestRespones<T> { 
+                Errors=Errors,
+                IsSuccess=false,
+                StatusCode= statuscode,
+                Message=message
             };
         }
+
     }
 }
