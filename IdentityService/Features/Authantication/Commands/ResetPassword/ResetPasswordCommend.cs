@@ -25,7 +25,7 @@ namespace IdentityService.Features.Authantication.Commands.ResetPassword
                 var user = await genaricRepository.GetByCriteriaAsync(x=>x.Id==request.Userid);
 
                 if (user == null)
-                    return RequestRespones<bool>.Fail("User not found during update", 404);
+                    return RequestRespones<bool>.Result(false,"User not found during update");
 
 
                 user.PasswordHash = GeneratePasswordHash(request.NewPassword);

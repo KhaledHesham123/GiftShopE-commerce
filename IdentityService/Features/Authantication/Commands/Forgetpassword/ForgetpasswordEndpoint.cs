@@ -19,7 +19,12 @@ namespace IdentityService.Features.Authantication.Commands.Forgetpassword
                 var response = await mediator.Send(new ForgetpasswordOrchestrator(Email, baseUrl));
 
                 if (!response.IsSuccess)
-                    return Results.NotFound(response.Message);
+                {
+                    return Results.Problem(
+                        detail: string.Join("; ", response.Errors.Any() ? response.Errors : new[] { response.Message ?? "" }),
+                        statusCode: response.StatusCode
+                    );
+                }
 
                 return Results.Ok(response);
             });

@@ -24,7 +24,10 @@ namespace IdentityService.Features.Authantication.Commands.Forgetpassword
             var userRespone = await mediator.Send(new Features.User.Quries.GetuserbyEmail.GetUserByEmailQuery(request.Email), cancellationToken);
             if (!userRespone.IsSuccess)
             {
-                return RequestRespones<ForgotPasswordDTO>.Fail("there is no user with this Email", 404);
+                return RequestRespones<ForgotPasswordDTO>.Fail(
+                    message: "there is no user with this Email",
+                    statuscode: 404
+                );
             }
 
             var code = GenerateVerificationCode();
@@ -48,7 +51,7 @@ namespace IdentityService.Features.Authantication.Commands.Forgetpassword
                 ExpirationInMinutes = 2
             };
 
-            return RequestRespones<ForgotPasswordDTO>.Success(emialDto);
+            return RequestRespones<ForgotPasswordDTO>.Success(data:emialDto);
 
 
         }

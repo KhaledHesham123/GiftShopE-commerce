@@ -1,4 +1,5 @@
-﻿using Domain_Layer.Respones;
+﻿using Azure;
+using Domain_Layer.Respones;
 using MediatR;
 
 namespace IdentityService.Features.Authantication.Commands.ResetPassword
@@ -7,9 +8,9 @@ namespace IdentityService.Features.Authantication.Commands.ResetPassword
     {
         public static IEndpointRouteBuilder MapResetPasswordEndpoint(this IEndpointRouteBuilder app)
         {
-            app.MapPost("/resetpassword",async (ResetPasswordViewModle model,IMediator mediator) =>
+            app.MapPost("/resetpassword", async (ResetPasswordViewModle model, IMediator mediator) =>
                 {
-                    var result = await mediator.Send(
+                    var response = await mediator.Send(
                         new ResetPasswordOrchestrator(
                             model.Email,
                             model.Token,
@@ -18,18 +19,22 @@ namespace IdentityService.Features.Authantication.Commands.ResetPassword
                         )
                     );
 
-                    if (!result.IsSuccess)
+                    if (!response.IsSuccess)
                     {
-                        return Results.Json(EndpointRespones<bool>.Fail(result.Message, result.StatusCode),
-                            statusCode: result.StatusCode);
+                        return Results.Problem(
+                            detail: string.Join("| ", response.Errors.Any() ? response.Errors : new[] { response.Message ?? "" }),
+                            statusCode: response.StatusCode
+                        );
                     }
 
-                    return Results.Json(EndpointRespones<bool>.Success(result.Data),
-                        statusCode: result.StatusCode);
+                    return Results.Ok(response);
 
                 });
-
             return app;
+            
         }
+    
     }
 }
+
+
