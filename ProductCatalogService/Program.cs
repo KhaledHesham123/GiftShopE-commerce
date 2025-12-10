@@ -1,15 +1,18 @@
-
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProductCatalogService.Data.DBContexts;
 using ProductCatalogService.Data.Seeders;
+using ProductCatalogService.Features.Occasion.Add.AddOccasion.Dto;
+using ProductCatalogService.Features.Occasion.Add.AddOccasionQr;
 using ProductCatalogService.Features.Shared;
 using ProductCatalogService.Features.Shared.Queries.CheckExist;
 using ProductCatalogService.Features.Shared.Queries.GetByCriteria;
 using ProductCatalogService.Shared.Behaviors;
 using ProductCatalogService.Shared.Entities;
 using ProductCatalogService.Shared.Extenstions;
+using ProductCatalogService.Shared.Helper;
 using ProductCatalogService.Shared.Interfaces;
 using ProductCatalogService.Shared.Middlewares;
 using ProductCatalogService.Shared.Repositories;
@@ -27,12 +30,17 @@ namespace ProductCatalogService
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
-           
+
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
+            builder.Services.AddSignalR();
             builder.Services.AddDbContext<ProductCatalogDbContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
-
+            builder.Services.AddScoped<IAddOccasionQr, AddOccasionQr>();
+            builder.Services.AddScoped<IImageHelper, ImageHelper>();
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -45,7 +53,7 @@ namespace ProductCatalogService
             {
                 option.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
             }));
-
+            builder.Services.AddHttpContextAccessor();
             #region Register Generic Handlers dynamically
 
             var entityAssembly = typeof(Category).Assembly; // adjust if entities in different assembly
@@ -86,19 +94,28 @@ namespace ProductCatalogService
                 }
             }
             // Configure the HTTP request pipeline.
+            
+
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
             }
 
+            //
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProductCatalog API V1");
+                c.RoutePrefix = string.Empty; // يفتح Swagger على /
+            });
+
             app.UseHttpsRedirection();
-
             app.UseAuthorization();
-
             app.UseMiddleware<TransactionMiddleware>();
             app.UseMiddleware<SaveChangesMiddleware>();
-
-
+            
+            
             app.MapControllers();
 
             app.Run();

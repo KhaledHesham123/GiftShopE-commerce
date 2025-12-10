@@ -12,7 +12,7 @@ namespace ProductCatalogService.Shared.Interfaces
         IQueryable<T> GetAll();
         Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken);
         Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken);
-        Task<T> AddAsync(T entity, CancellationToken cancellationToken);
+        Task<T> AddAsync(T entity);
         Task<T> UpdateAsync(T entity);
         Task DeleteAsync(Guid id, CancellationToken cancellationToken);
         Task<bool> ExistsAsync(Guid id, CancellationToken cancellationToken);
