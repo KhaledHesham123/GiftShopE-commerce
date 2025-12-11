@@ -22,7 +22,7 @@ namespace ProductCatalogService.Features.OccasionFeatures.Add.AddOccasion
                     Status = request.Status,
                     ImageUrl = request.ImageUrl
                 };
-                await _repository.AddAsync(occasion);
+                await _repository.AddAsync(occasion, cancellationToken);
                 var occasiondro = new OccasionDro
                 {
                     Id= occasion.Id,
