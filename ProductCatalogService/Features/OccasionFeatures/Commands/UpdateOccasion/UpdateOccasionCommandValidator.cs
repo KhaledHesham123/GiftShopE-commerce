@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace ProductCatalogService.Features.Occasion.Commands.UpdateOccasion
+namespace ProductCatalogService.Features.OccasionFeatures.Commands.UpdateOccasion
 {
     public class UpdateOccasionCommandValidator:AbstractValidator<UpdateOccasionCommand>
     {

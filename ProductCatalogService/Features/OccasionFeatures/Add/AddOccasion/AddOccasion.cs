@@ -1,12 +1,12 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
-using ProductCatalogService.Features.Occasion.Add.AddOccasion.Dto;
+using ProductCatalogService.Features.OccasionFeatures.Add.AddOccasion.Dto;
 using ProductCatalogService.Features.Shared;
 using ProductCatalogService.Shared.Entities;
 using ProductCatalogService.Shared.Interfaces;
 using ProductCatalogService.Shared.Repositories;
 
-namespace ProductCatalogService.Features.Occasion.Add.AddOccasion
+namespace ProductCatalogService.Features.OccasionFeatures.Add.AddOccasion
 {
     public record AddOccasion( string Name , bool Status ,
     string? ImageUrl ):IRequest< Result<OccasionDro>>;

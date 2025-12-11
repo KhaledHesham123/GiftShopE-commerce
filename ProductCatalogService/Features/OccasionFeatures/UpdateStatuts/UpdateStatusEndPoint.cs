@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ProductCatalogService.Features.CategoryFeatures.Commands.UpdateCategory;
-using ProductCatalogService.Features.Occasion.Add.AddOccasion.Dto;
+using ProductCatalogService.Features.OccasionFeatures.Add.AddOccasion.Dto;
 using ProductCatalogService.Features.Shared;
 using ProductCatalogService.Shared.Interfaces;
 
-namespace ProductCatalogService.Features.Occasion.UpdateStatuts
+namespace ProductCatalogService.Features.OccasionFeatures.UpdateStatuts
 {
     [ApiController]
     [Route("[controller]")]

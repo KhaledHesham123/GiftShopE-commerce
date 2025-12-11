@@ -4,7 +4,7 @@ using ProductCatalogService.Features.Shared;
 using ProductCatalogService.Shared.Entities;
 using ProductCatalogService.Shared.Interfaces;
 
-namespace ProductCatalogService.Features.Occasion.Commands.UpdateOccasion
+namespace ProductCatalogService.Features.OccasionFeatures.Commands.UpdateOccasion
 {
     public record UpdateOccasionCommand(Guid Occasionid, string Name, bool Status) : IRequest<Result<bool>>;
 

@@ -21,7 +21,6 @@ namespace ProductCatalogService.Features.CategoryFeatures.Commands.UpdateCategor
             if (category == null)
                 return Result<UpdateCategoryDTO>.FailResponse("Category not found.", new List<string> { "Category not found." }, 404);
 
-            // check duplicate name excluding current category
             var exists = await _categoryRepository.ExistsAsync(c => c.Name == request.Name && c.Id != request.Id, cancellationToken);
 
             if (exists)

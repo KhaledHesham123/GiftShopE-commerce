@@ -21,7 +21,7 @@ namespace ProductCatalogService.Shared.Interfaces
         Task<int> CountAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken);
         Task<T?> GetByCriteriaAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken);
         IQueryable<T> GetQueryableByCriteria(Expression<Func<T, bool>> predicate);
-
+        IQueryable<T> Get();
         void SaveInclude(T entity, params string[] includedProperties);
         Task SaveChangesAsync();
     }

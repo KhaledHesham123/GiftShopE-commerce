@@ -13,7 +13,7 @@
         public Guid CategoryId { get; set; }
         public Category Category { get; set; }
 
-        public ICollection<ProductOccasion> ProductOccasions { get; set; }
+        public ICollection<ProductOccasion> ProductOccasions { get; set; } = new HashSet<ProductOccasion>();
     }
 
 }

@@ -1,16 +1,17 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
-using ProductCatalogService.Features.Occasion.Add.AddOccasion.Dto;
+using ProductCatalogService.Features.OccasionFeatures.Add.AddOccasion.Dto;
 using ProductCatalogService.Features.Shared;
 using ProductCatalogService.Features.Shared.Queries.CheckExist;
+using ProductCatalogService.Shared.Entities;
 using ProductCatalogService.Shared.Hup;
 
 
 //using ProductCatalogService.Features.Shared.Queries.CheckExist;
 using ProductCatalogService.Shared.Interfaces;
 
-namespace ProductCatalogService.Features.Occasion.Add.AddOccasionQr
+namespace ProductCatalogService.Features.OccasionFeatures.Add.AddOccasionQr
 {
     public class AddOccasionQr : IAddOccasionQr
     {
@@ -27,7 +28,7 @@ namespace ProductCatalogService.Features.Occasion.Add.AddOccasionQr
 
         public async Task<Result<bool>> IAddOccasion(OccasionRequest Request)
         {
-            var flag = await _mediator.Send(new CheckExistQuery<ProductCatalogService.Shared.Entities.Occasion>(e => e.Name == Request.Name.ToLower()));
+            var flag = await _mediator.Send(new CheckExistQuery<Occasion>(e => e.Name == Request.Name.ToLower()));
             if (string.IsNullOrEmpty(Request.Name) || flag.Success)
                 return Result<bool>.FailResponse("Occasion already exists");
             string imageUrl = string.Empty;
@@ -35,7 +36,7 @@ namespace ProductCatalogService.Features.Occasion.Add.AddOccasionQr
             {
                 imageUrl = await _image.SaveImageAsync(Request.ImageUrl, "Occasion");
             }
-            var flag2 =  await _mediator.Send(new Occasion.Add.AddOccasion.AddOccasion(Request.Name.ToLower(), Request.Status, imageUrl));
+            var flag2 =  await _mediator.Send(new OccasionFeatures.Add.AddOccasion.AddOccasion(Request.Name.ToLower(), Request.Status, imageUrl));
             if (!flag2.Success)
                 return Result<bool>.FailResponse("Failed to add occasion");
             //hub 

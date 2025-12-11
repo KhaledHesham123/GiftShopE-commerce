@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using ProductCatalogService.Features.Occasion.Add.AddOccasion.Dto;
+using ProductCatalogService.Features.OccasionFeatures.Add.AddOccasion.Dto;
 
 namespace ProductCatalogService.Shared.Hup
 {

@@ -1,6 +1,6 @@
-﻿using ProductCatalogService.Features.Occasion.Commands.UpdateOccasion;
+﻿using ProductCatalogService.Features.OccasionFeatures.Commands.UpdateOccasion;
 
-namespace ProductCatalogService.Features.Occasion
+namespace ProductCatalogService.Features.OccasionFeatures
 {
     public static class OccasionEndpoints
     {

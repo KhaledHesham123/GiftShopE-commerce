@@ -101,7 +101,7 @@ namespace ProductCatalogService.Shared.Repositories
 
         public IQueryable<T> GetAll() => _dbSet;
 
-
+        public IQueryable<T> Get() => _dbSet;
         public void SaveInclude(T entity, params string[] includedProperties)
         {
             var localEntity = _dbSet.Local.FirstOrDefault(e => e.Id == entity.Id);
