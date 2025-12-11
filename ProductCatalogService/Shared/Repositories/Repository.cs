@@ -48,9 +48,9 @@ namespace ProductCatalogService.Shared.Repositories
             return await _dbSet.FirstOrDefaultAsync(predicate, cancellationToken);
         }
 
-        public virtual async Task<T> AddAsync(T entity/*, CancellationToken cancellationToken*/)
+        public virtual async Task<T> AddAsync(T entity, CancellationToken cancellationToken)
         {
-            await _dbSet.AddAsync(entity);
+            await _dbSet.AddAsync(entity, cancellationToken);
             return entity;
         }
 

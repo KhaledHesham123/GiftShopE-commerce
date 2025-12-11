@@ -31,7 +31,7 @@ namespace ProductCatalogService.Features.CategoryFeatures.Commands.CreateCategor
                 Status = request.IsActive
             };
 
-            await _categoryRepository.AddAsync(category);
+            await _categoryRepository.AddAsync(category, cancellationToken);
 
             return Result<CreateCategoryDTO>.SuccessResponse(new CreateCategoryDTO
             {
