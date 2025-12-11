@@ -4,9 +4,9 @@
     {
         public string Name { get; set; }
         public bool Status { get; set; } // Active/NotActive
-        public string ?ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
 
-        public ICollection<Product> Products { get; set; }
+        public ICollection<Product> Products { get; set; } = new HashSet<Product>();
     }
 
 }

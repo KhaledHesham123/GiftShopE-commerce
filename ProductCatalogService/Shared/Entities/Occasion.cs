@@ -6,7 +6,7 @@
         public bool Status { get; set; }
         public string ?ImageUrl { get; set; }
 
-        public ICollection<ProductOccasion> ProductOccasions { get; set; }
+        public ICollection<ProductOccasion> ProductOccasions { get; set; } = new HashSet<ProductOccasion>();
     }
 
 }

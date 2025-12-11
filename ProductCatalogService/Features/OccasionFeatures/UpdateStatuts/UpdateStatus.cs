@@ -1,12 +1,12 @@
 ﻿using Azure.Core;
 using MediatR;
 using Microsoft.AspNetCore.SignalR;
-using ProductCatalogService.Features.Occasion.Add.AddOccasion.Dto;
+using ProductCatalogService.Features.OccasionFeatures.Add.AddOccasion.Dto;
 using ProductCatalogService.Features.Shared;
 using ProductCatalogService.Shared.Hup;
 using ProductCatalogService.Shared.Interfaces;
 
-namespace ProductCatalogService.Features.Occasion.UpdateStatuts
+namespace ProductCatalogService.Features.OccasionFeatures.UpdateStatuts
 {
     public record UpdateStatus(Guid id , bool Status):IRequest<Result<bool>>;
 

@@ -1,5 +1,5 @@
 ﻿using Microsoft.Identity.Client;
-using ProductCatalogService.Features.Occasion.Add.AddOccasion.Dto;
+using ProductCatalogService.Features.OccasionFeatures.Add.AddOccasion.Dto;
 using ProductCatalogService.Features.Shared;
 
 namespace ProductCatalogService.Shared.Interfaces
