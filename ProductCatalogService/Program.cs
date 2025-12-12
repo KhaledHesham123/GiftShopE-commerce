@@ -14,6 +14,7 @@ using ProductCatalogService.Shared.Behaviors;
 using ProductCatalogService.Shared.Entities;
 using ProductCatalogService.Shared.Extenstions;
 using ProductCatalogService.Shared.Helper;
+using ProductCatalogService.Shared.Hup;
 using ProductCatalogService.Shared.Interfaces;
 using ProductCatalogService.Shared.Middlewares;
 using ProductCatalogService.Shared.Repositories;
@@ -118,7 +119,7 @@ namespace ProductCatalogService
             app.UseMiddleware<TransactionMiddleware>();
             app.UseMiddleware<SaveChangesMiddleware>();
             
-            
+            app.MapHub<OccasionHub>("/hubs/occasionHub");
             app.MapControllers();
 
             app.Run();
