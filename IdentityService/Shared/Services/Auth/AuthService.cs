@@ -4,13 +4,6 @@ using IdentityService.Features.Authantication.Commands.UpdateRefreshToken;
 using IdentityService.Features.Authantication.Queries.GetPermissionsByUserId;
 using IdentityService.Features.Authantication.Queries.GetRolesByUserId;
 using IdentityService.Features.Authantication.Queries.GetUserByRefreshToken;
-
-
-//using IdentityService.Features.Authantication.Commands.AddRefreshToken;
-//using IdentityService.Features.Authantication.Queries.GetPermissionsByUserId;
-//using IdentityService.Features.Authantication.Queries.GetRefreshTokenByUserId;
-//using IdentityService.Features.Authantication.Queries.GetRolesByUserId;
-//using IdentityService.Features.Authantication.Queries.GetUserByRefreshToken;
 using IdentityService.Shared.Entites;
 using MediatR;
 using Microsoft.IdentityModel.Tokens;
@@ -75,15 +68,7 @@ namespace IdentityService.Shared.Services
                 user.RefreshTokens.Add(refreshToken);
                 await _mediator.Send(new UpdateRefreshTokenCommand(user));
             }
-            //if (refreshToken is null)
-            //{
-            //    refreshToken = GenerateRefreshToken();
-            //    refreshToken.UserId = user.Id;
-            //    await _mediator.Send(new AddRefreshTokenCommand(refreshToken));
-            //}
-            //authModel.RefreshToken = refreshToken.Token;
-            //authModel.RefreshTokenExpiration = refreshToken.ExpiresOn;
-
+          
             return authModel;
         }
         public async Task<AuthModel> RefreshTokenAsync(string refreshToken)
@@ -138,7 +123,7 @@ namespace IdentityService.Shared.Services
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(JwtRegisteredClaimNames.Aud, _config["JWT:Audience"]),
-                new Claim(JwtRegisteredClaimNames.Iss, _config["JWT:Author"])
+                new Claim(JwtRegisteredClaimNames.Iss, _config["JWT:Issuer"])
             };
 
             // Add Roles

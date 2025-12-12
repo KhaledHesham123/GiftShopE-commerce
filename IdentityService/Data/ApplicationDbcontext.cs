@@ -22,8 +22,5 @@ namespace IdentityService.Data
         public DbSet<UserToken> UserTokens { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<RolePermission> RolePermissions { get; set; }
-        public DbSet<UserPermission> UserPermissions { get; set; }
-
-
     }
 }

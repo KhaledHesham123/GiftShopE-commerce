@@ -1,4 +1,4 @@
-﻿namespace IdentityService.Features.Authantication.Commands.SignUp
+﻿namespace IdentityService.Shared.Services.MessageBroker.Messages
 {
     public class UserCreatedEvent
     {

@@ -10,7 +10,6 @@ namespace IdentityService.Shared.Entites
         public string PasswordHash { get; set; } = default!;
         public string PhoneNumber { get; set; } = string.Empty;
         public Gender Gender { get; set; } 
-        //public bool IsEmailConfirmed { get; set; } = false;
         public ICollection<UserRole> UserRoles { get; set; } = new HashSet<UserRole>();
 
         public ICollection<RefreshToken> RefreshTokens = new HashSet<RefreshToken>();

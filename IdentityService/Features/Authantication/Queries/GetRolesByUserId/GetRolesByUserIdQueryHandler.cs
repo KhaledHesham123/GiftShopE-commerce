@@ -22,7 +22,6 @@ namespace IdentityService.Features.Authantication.Queries.GetRolesByUserId
             return userRoles is not null && userRoles.Any()
                ? ResponseResult<IEnumerable<GetRolesByUserIdDTO>>.SuccessResponse(userRoles, "roles retrieved successfully")
                : ResponseResult<IEnumerable<GetRolesByUserIdDTO>>.FailResponse("No roles found for the specified user.");
-            throw new NotImplementedException();
         }
     }
 }

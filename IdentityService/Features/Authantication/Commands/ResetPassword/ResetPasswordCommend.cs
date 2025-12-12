@@ -2,6 +2,7 @@
 using IdentityService.Shared.Repository;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Crypto.Generators;   
 
 namespace IdentityService.Features.Authantication.Commands.ResetPassword
 {
