@@ -9,9 +9,9 @@ namespace IdentityService.Features.UserToken.Commands.CreateUserToken
 
     public class CreateUserTokenCommandHandler : IRequestHandler<CreateUserTokenCommand, RequestRespones<string>>
     {
-        private readonly IGenaricRepository<Shared.Entites.UserToken> _userTokenRepository;
+        private readonly IGenericRepository<Shared.Entites.UserToken> _userTokenRepository;
 
-        public CreateUserTokenCommandHandler(IGenaricRepository<Shared.Entites.UserToken> genaricRepository)
+        public CreateUserTokenCommandHandler(IGenericRepository<Shared.Entites.UserToken> genaricRepository)
         {
             this._userTokenRepository = genaricRepository;
         }

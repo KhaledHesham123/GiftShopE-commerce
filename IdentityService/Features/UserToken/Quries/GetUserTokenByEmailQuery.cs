@@ -11,9 +11,9 @@ namespace IdentityService.Features.UserToken.Quries
 
     public class GetUserTokenQueryByEmailHandler : IRequestHandler<GetUserTokenByEmailQuery, RequestRespones<UserTokenToReturnDto>>
     {
-        private readonly IGenaricRepository<Shared.Entites.UserToken> genaricRepository;
+        private readonly IGenericRepository<Shared.Entites.UserToken> genaricRepository;
 
-        public GetUserTokenQueryByEmailHandler(IGenaricRepository<Shared.Entites.UserToken> genaricRepository)
+        public GetUserTokenQueryByEmailHandler(IGenericRepository<Shared.Entites.UserToken> genaricRepository)
         {
             this.genaricRepository = genaricRepository;
         }

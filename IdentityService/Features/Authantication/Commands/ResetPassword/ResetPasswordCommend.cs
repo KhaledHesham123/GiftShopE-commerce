@@ -2,7 +2,6 @@
 using IdentityService.Shared.Repository;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Org.BouncyCastle.Crypto.Generators;
 
 namespace IdentityService.Features.Authantication.Commands.ResetPassword
 {
@@ -10,10 +9,10 @@ namespace IdentityService.Features.Authantication.Commands.ResetPassword
 
     public class ResetPasswordCommendHandler : IRequestHandler<ResetPasswordCommend, RequestRespones<bool>>
     {
-        private readonly IGenaricRepository<Shared.Entites.User> genaricRepository;
-        private readonly IGenaricRepository<Shared.Entites.UserToken> tokenRepo;
+        private readonly IGenericRepository<Shared.Entites.User> genaricRepository;
+        private readonly IGenericRepository<Shared.Entites.UserToken> tokenRepo;
 
-        public ResetPasswordCommendHandler(IGenaricRepository<Shared.Entites.User> genaricRepository, IGenaricRepository<Shared.Entites.UserToken> tokenRepo)
+        public ResetPasswordCommendHandler(IGenericRepository<Shared.Entites.User> genaricRepository, IGenericRepository<Shared.Entites.UserToken> tokenRepo)
         {
             this.genaricRepository = genaricRepository;
             this.tokenRepo = tokenRepo;
