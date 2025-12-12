@@ -11,9 +11,11 @@ using IdentityService.Shared.Repository;
 using IdentityService.Shared.Services;
 using IdentityService.Shared.Services.EmailVerificationServices;
 using IdentityService.Shared.UIitofwork;
+using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -28,11 +30,13 @@ namespace IdentityService
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddEndpointsApiExplorer();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
             builder.Services.AddDbContext<ApplicationDbcontext>(options =>
             {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection"));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("identityConnection"));
+                //options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection"));
             });
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddScoped<IUnitofWork, UnitofWork>();
@@ -76,6 +80,18 @@ namespace IdentityService
             builder.Services.AddAuthorization();
             builder.Services.AddMemoryCache();
             builder.Services.AddTransient<GlobalExceptionHandler>();
+            builder.Services.AddMassTransit( X =>
+            {
+                X.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host(builder.Configuration["RabbitMQ:Host"], h =>
+                    {
+                        h.Username(builder.Configuration["RabbitMQ:Username"]);
+                        h.Password(builder.Configuration["RabbitMQ:Password"]);
+                    });
+                    cfg.ConfigureEndpoints(context); //for all Consumers
+                });
+            });
 
             var app = builder.Build();
 
@@ -86,14 +102,36 @@ namespace IdentityService
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
+                var logger = services.GetRequiredService<ILogger<Program>>();
+
                 try
                 {
                     var context = services.GetRequiredService<ApplicationDbcontext>();
-                    await DataSeeder.SeedAsync(context);
+                    var retryCount = 0;
+                    var maxRetries = 10;
+
+                    while (retryCount < maxRetries)
+                    {
+
+                        try
+                        {
+                            await DataSeeder.SeedAsync(context);
+                            break;
+                        }
+                        catch (Exception ex)
+                        {
+                            retryCount++;
+                            logger.LogWarning($"Waiting for SQL Server... attempt {retryCount}/10");
+
+                            if (retryCount == maxRetries)
+                                throw;
+
+                            await Task.Delay(3000);
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
-                    var logger = services.GetRequiredService<ILogger<Program>>();
                     logger.LogError(ex, "An error occurred while seeding the database.");
                 }
             }
@@ -102,6 +140,11 @@ namespace IdentityService
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
+                app.UseSwaggerUI(options =>
+                {
+                    // Tell Swagger UI where to find the OpenAPI document
+                    options.SwaggerEndpoint("/openapi/v1.json", "My API v1");
+                });
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();

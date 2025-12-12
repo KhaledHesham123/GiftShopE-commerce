@@ -7,16 +7,16 @@ namespace IdentityService.Features.Authantication.Commands.SignUp
 {
     [ApiController]
     [Route("api/[Controller]")]
-    public class SignUpController : ControllerBase
+    public class AuthController : ControllerBase
     {
         private readonly IMediator _mediator;
         private readonly IUnitofWork _unitofWork;
-        public SignUpController(IMediator mediator , IUnitofWork unitofWork)
+        public AuthController(IMediator mediator , IUnitofWork unitofWork)
         {
             _mediator = mediator;
             _unitofWork = unitofWork;
         }
-        [HttpPost]
+        [HttpPost("SignUp")]
         public async Task<ActionResult<ResponseResult<string>>> SignUp([FromBody] SignUpDTO  signUpDTO)
         {
             var result = await _mediator.Send(new SignUpCommand(signUpDTO.FirstName , signUpDTO.LastName , signUpDTO.Email , signUpDTO.Password , signUpDTO.ConfirmPassword,signUpDTO.PhoneNumber , signUpDTO.Gender));

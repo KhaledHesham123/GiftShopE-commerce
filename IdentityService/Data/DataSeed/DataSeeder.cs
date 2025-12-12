@@ -43,8 +43,8 @@ namespace IdentityService.Data.DataSeed
         {
             var roles = new List<Role>
         {
-            new Role { Id = AdminRoleId, Name = "Admin" },
-            new Role { Id = UserRoleId, Name = "Customer" },
+            new Role { Id = AdminRoleId, Name = "Admin" ,Description = "System administrator role"},
+            new Role { Id = UserRoleId, Name = "Customer" , Description = "Standard customer role" },
         };
 
             await context.Roles.AddRangeAsync(roles);
@@ -55,11 +55,11 @@ namespace IdentityService.Data.DataSeed
         {
             var permissions = new List<Permission>
         {
-            new Permission { Id = CreateUserPermId, Name = "CreateUser" },
-            new Permission { Id = DeleteUserPermId, Name = "DeleteUser" },
-            new Permission { Id = UpdateUserPermId, Name = "UpdateUser" },
-            new Permission { Id = ViewUserPermId, Name = "ViewUser" },
-            new Permission { Id = ManageRolesPermId, Name = "ManageRoles" }
+            new Permission { Id = CreateUserPermId, Name = "CreateUser",Description = "Allows the user to create new users." },
+            new Permission { Id = DeleteUserPermId, Name = "DeleteUser", Description = "Allows the user to delete existing users." },
+            new Permission { Id = UpdateUserPermId, Name = "UpdateUser" , Description = "Allows the user to update user information." },
+            new Permission { Id = ViewUserPermId, Name = "ViewUser" , Description = "Allows the user to view user details." },
+            new Permission { Id = ManageRolesPermId, Name = "ManageRoles" , Description = "Allows the user to assign and manage roles." }
         };
 
             await context.Permissions.AddRangeAsync(permissions);

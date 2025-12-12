@@ -26,7 +26,9 @@ namespace IdentityService.Shared.Behavior
                     .ToList();
 
                 if (failures.Any())
+                {
                     throw new ValidationException(failures);
+                }
             }
 
             return await next();
