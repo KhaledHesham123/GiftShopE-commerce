@@ -9,5 +9,11 @@ namespace ProductCatalogService.Shared.Hup
         {
             await Clients.All.SendAsync("ReceiveOccasionAdd", occasion);
         }
+
+
+        public async Task SendOccasionUpdate(OccasionRequest occasion)
+        {
+            await Clients.All.SendAsync("ReceiveOccasionUpdate", occasion);
+        }
     }
 }

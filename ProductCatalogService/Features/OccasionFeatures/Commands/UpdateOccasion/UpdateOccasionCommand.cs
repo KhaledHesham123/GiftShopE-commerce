@@ -1,7 +1,10 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.SignalR;
 using ProductCatalogService.Features.CategoryFeatures.Commands.UpdateCategory;
+using ProductCatalogService.Features.OccasionFeatures.Add.AddOccasion.Dto;
 using ProductCatalogService.Features.Shared;
 using ProductCatalogService.Shared.Entities;
+using ProductCatalogService.Shared.Hup;
 using ProductCatalogService.Shared.Interfaces;
 
 namespace ProductCatalogService.Features.OccasionFeatures.Commands.UpdateOccasion
@@ -11,10 +14,12 @@ namespace ProductCatalogService.Features.OccasionFeatures.Commands.UpdateOccasio
     public class UpdateOccasionCommandHandler : IRequestHandler<UpdateOccasionCommand, Result<bool>>
     {
         private readonly IRepository<Occasion> repository;
+        private readonly IHubContext<OccasionHub> hub;
 
-        public UpdateOccasionCommandHandler(IRepository<Occasion> repository)
+        public UpdateOccasionCommandHandler(IRepository<Occasion> repository, IHubContext<OccasionHub> hub)
         {
             this.repository = repository;
+            this.hub = hub;
         }
         public async Task<Result<bool>> Handle(UpdateOccasionCommand request, CancellationToken cancellationToken)
         {
@@ -39,6 +44,12 @@ namespace ProductCatalogService.Features.OccasionFeatures.Commands.UpdateOccasio
                    nameof(occasion.Status));
 
             await repository.SaveChangesAsync();
+            await hub.Clients.All.SendAsync("ReceiveOccasionUpdate", new OccasionRequest
+            {
+                Name = occasion.Name,
+                Status = occasion.Status,
+            });
+
 
             return Result<bool>.SuccessResponse(true);
         }
