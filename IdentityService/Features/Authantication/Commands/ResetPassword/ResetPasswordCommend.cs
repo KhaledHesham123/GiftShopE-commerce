@@ -11,12 +11,10 @@ namespace IdentityService.Features.Authantication.Commands.ResetPassword
     public class ResetPasswordCommendHandler : IRequestHandler<ResetPasswordCommend, RequestRespones<bool>>
     {
         private readonly IGenericRepository<Shared.Entites.User> genaricRepository;
-        private readonly IGenericRepository<Shared.Entites.UserToken> tokenRepo;
 
         public ResetPasswordCommendHandler(IGenericRepository<Shared.Entites.User> genaricRepository, IGenericRepository<Shared.Entites.UserToken> tokenRepo)
         {
             this.genaricRepository = genaricRepository;
-            this.tokenRepo = tokenRepo;
         }
         public async Task<RequestRespones<bool>> Handle(ResetPasswordCommend request, CancellationToken cancellationToken)
         {
@@ -32,11 +30,7 @@ namespace IdentityService.Features.Authantication.Commands.ResetPassword
 
                 genaricRepository.SaveInclude(user);
 
-                var oldTokens = await tokenRepo.GetQueryableByCriteria(t => t.UserId == request.Userid).ToListAsync();
-                if (oldTokens.Any())
-                {
-                    tokenRepo.DeleteRange(oldTokens); 
-                }
+                
                 await genaricRepository.SaveChangesAsync();
 
                 return RequestRespones<bool>.Success(true);

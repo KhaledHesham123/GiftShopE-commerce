@@ -1,5 +1,6 @@
 ﻿using IdentityService.Features.Authantication.Commands.Forgetpassword;
 using IdentityService.Features.Authantication.Commands.ResetPassword;
+using IdentityService.Features.Authantication.Commands.VerifyEmailCode;
 
 namespace IdentityService.Features.Authantication
 {
@@ -10,6 +11,7 @@ namespace IdentityService.Features.Authantication
         {
             app.MapForgetpasswordEndpoint();
             app.MapResetPasswordEndpoint();
+            app.MapVerifyEmailCodeEndpoint();
 
             return app;
         }
