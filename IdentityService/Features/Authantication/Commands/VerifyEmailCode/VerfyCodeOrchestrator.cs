@@ -59,9 +59,6 @@ namespace IdentityService.Features.Authantication.Commands.VerifyEmailCode
             }
 
 
-
-
-
             return RequestRespones<bool>.Success(true);
 
         }
