@@ -115,6 +115,7 @@ namespace ProductCatalogService
             });
 
             app.UseHttpsRedirection();
+            app.UseCors("myPolicy");
             app.UseAuthorization();
             app.UseMiddleware<TransactionMiddleware>();
             app.UseMiddleware<SaveChangesMiddleware>();
