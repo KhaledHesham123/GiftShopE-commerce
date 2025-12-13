@@ -27,7 +27,8 @@ namespace IdentityService.Features.UserToken.Commands.CreateUserToken
                     UserId = request.UserId,
                     Token = request.token,
                     CreatedAt = DateTime.UtcNow,
-                    ExpiredDate = DateTime.UtcNow.AddMinutes(request.expiredInMin)
+                    ExpiredDate = DateTime.UtcNow.AddMinutes(request.expiredInMin),
+                    IsVerified= false,
                 };
 
                 await _userTokenRepository.AddAsync(userToken);

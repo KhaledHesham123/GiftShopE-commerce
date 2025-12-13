@@ -13,7 +13,6 @@ namespace IdentityService.Features.Authantication.Commands.ResetPassword
                     var response = await mediator.Send(
                         new ResetPasswordOrchestrator(
                             model.Email,
-                            model.Token,
                             model.NewPassword,
                             model.ConfirmPassword
                         )

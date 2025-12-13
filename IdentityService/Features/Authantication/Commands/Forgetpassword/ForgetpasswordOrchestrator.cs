@@ -30,16 +30,16 @@ namespace IdentityService.Features.Authantication.Commands.Forgetpassword
                 );
             }
 
-            var code = GenerateVerificationCode();
+            var code = mailSettings.GenerateVerificationCode();
 
 
             var userResetPasswordToken = await mediator.Send(new CreateUserTokenCommand(userRespone.Data.Id, code,2), cancellationToken);
 
-            var resetUrl = $"{request.BaseUrl}/resetpassword-form?email={request.Email}&token={code}";
+            //var resetUrl = $"{request.BaseUrl}/resetpassword-form?email={request.Email}&token={code}"; to do reset password with link 
             var emial = new Email
             {
                 subject = "Reset Your Password",
-                body = resetUrl,
+                body = $"your Verification Code = {code}",
                 to = request.Email
             };
 
@@ -55,11 +55,7 @@ namespace IdentityService.Features.Authantication.Commands.Forgetpassword
 
 
         }
-        private string GenerateVerificationCode()
-        {
-            var random = new Random();
-            return random.Next(100000, 999999).ToString();
-        }
+        
     }
 
     

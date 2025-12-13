@@ -7,5 +7,8 @@
 
         public string Token { get; set; }
         public DateTime ExpiredDate { get; set; }
+
+        public bool IsVerified { get; set; }
+        public DateTime? VerifiedAt { get; set; }
     }
 }

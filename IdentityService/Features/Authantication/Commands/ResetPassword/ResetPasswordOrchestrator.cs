@@ -1,12 +1,13 @@
 ﻿using Domain_Layer.Respones;
 using IdentityService.Features.User.Quries.GetuserbyEmail;
+using IdentityService.Features.UserToken.Commands.RemoveUserToken;
 using IdentityService.Features.UserToken.Quries;
 using IdentityService.Features.UserToken.Quries.GetUserToken;
 using MediatR;
 
 namespace IdentityService.Features.Authantication.Commands.ResetPassword
 {
-    public record ResetPasswordOrchestrator(string Email, string Token, string NewPassword, string ConfirmPassword) : IRequest<RequestRespones<bool>>;
+    public record ResetPasswordOrchestrator(string Email,  string NewPassword, string ConfirmPassword) : IRequest<RequestRespones<bool>>;
 
     public class ResetPasswordOrchestratorHandler : IRequestHandler<ResetPasswordOrchestrator, RequestRespones<bool>>
     {
@@ -20,8 +21,6 @@ namespace IdentityService.Features.Authantication.Commands.ResetPassword
         {
             try
             {
-                if (request.NewPassword != request.ConfirmPassword)
-                    return RequestRespones<bool>.Fail("Passwords do not match", 400);
 
                 var GetUserRespone = await mediator.Send(new GetUserByEmailQuery(request.Email), cancellationToken);
 
@@ -30,16 +29,20 @@ namespace IdentityService.Features.Authantication.Commands.ResetPassword
                     return RequestRespones<bool>.Fail("User not found", 404);
                 }
 
-                var GetUserTokenRespone = await mediator.Send(new GetUserTokenByEmailQuery(GetUserRespone.Data.Email), cancellationToken);
+                var tokenResponse = await mediator.Send(new GetUserTokenByEmailQuery(request.Email));
 
-                var tokenValidationResult = ValidateToken(GetUserTokenRespone.Data, request.Token);
-
-                if (!tokenValidationResult.IsSuccess)
+                var validationResult = ValidateToken(tokenResponse.Data);
+                if (!validationResult.IsSuccess)
                 {
-                    return tokenValidationResult;
+                    return validationResult;
                 }
 
-                return await mediator.Send(new ResetPasswordCommend(GetUserRespone.Data.Id, request.NewPassword), cancellationToken);
+
+                var resetResult = await mediator.Send(new ResetPasswordCommend(GetUserRespone.Data.Id, request.NewPassword), cancellationToken);
+
+                var RemoveUserTokenRespone = await mediator.Send(new RemoveUserTokenCommand(GetUserRespone.Data.Id), cancellationToken);
+
+                return resetResult;
 
             }
             catch (Exception ex )
@@ -55,25 +58,24 @@ namespace IdentityService.Features.Authantication.Commands.ResetPassword
         }
 
 
-
-        private RequestRespones<bool> ValidateToken(UserTokenToReturnDto tokenData, string providedToken)
+        private RequestRespones<bool> ValidateToken(UserTokenToReturnDto userToken)
         {
-            if (tokenData == null)
+            if (userToken == null)
             {
-                return RequestRespones<bool>.Fail("Invalid or missing token record", 400);
+                return RequestRespones<bool>.Fail("Reset token not found", 400);
             }
 
-            if (tokenData.Token != providedToken)
+            if (!userToken.IsVerified)
             {
-                return RequestRespones<bool>.Fail("Invalid token provided", 400);
+                return RequestRespones<bool>.Fail(
+                    "Verification required before resetting password",
+                    403
+                );
             }
-
-            //if (tokenData.ExpiredDate.ToUniversalTime() < DateTime.UtcNow)
-            //{
-            //    return RequestRespones<bool>.Fail("Token has expired", 400);
-            //}
-
             return RequestRespones<bool>.Success(true);
         }
+
     }
+
+    
 }

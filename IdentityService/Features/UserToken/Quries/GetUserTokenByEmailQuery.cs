@@ -26,7 +26,9 @@ namespace IdentityService.Features.UserToken.Quries
                     id = x.Id,
                     Token = x.Token,
                     ExpiredDate = x.ExpiredDate,
-                    UserId = x.UserId
+                    UserId = x.UserId,
+                    IsVerified=x.IsVerified,
+                    VerifiedAt=x.VerifiedAt,
                 }).FirstOrDefaultAsync(cancellationToken); ;
 
             if (userToken==null)

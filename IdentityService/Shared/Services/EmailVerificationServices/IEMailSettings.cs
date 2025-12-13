@@ -5,5 +5,8 @@ namespace IdentityService.Shared.Services.EmailVerificationServices
     public interface IEMailSettings
     {
         void sendEmail(Email email);
+
+        string GenerateVerificationCode();
+       
     }
 }
