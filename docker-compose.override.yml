@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
 
   sqlserver:
@@ -29,6 +31,20 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: always
+    healthcheck:
+     test: ["CMD", "redis-cli", "ping"]
+     interval: 10s
+     timeout: 5s
+     retries: 5
 
   identityservice:
     environment:
@@ -67,6 +83,8 @@ services:
         condition: service_healthy
       rabbitmq:
         condition: service_healthy
+      redis:
+       condition: service_healthy
 
   orderservice:
     environment:
@@ -131,8 +149,8 @@ services:
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
     ports:
-      - "61010:8080"
-      - "61011:8081"
+      - "6110:8080"
+      - "6111:8081"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
@@ -150,8 +168,8 @@ services:
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
     ports:
-      - "61012:8080"
-      - "61013:8081"
+      - "6112:8080"
+      - "6113:8081"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
@@ -163,4 +181,5 @@ services:
       rabbitmq:
         condition: service_healthy
 
-
+volumes:
+  redis-data:
