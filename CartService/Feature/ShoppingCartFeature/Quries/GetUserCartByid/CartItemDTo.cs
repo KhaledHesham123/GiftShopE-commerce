@@ -1,8 +1,7 @@
-﻿namespace CartService.Shared.Entites
+﻿namespace CartService.Feature.ShoppingCartFeature.Quries.GetUserCartByid
 {
-    public class CartItem
+    public class CartItemDTo
     {
-        public Guid ProductId { get; set; }  
 
         public string ShoppingCartId { get; set; }
         public string ProductName { get; set; }

@@ -6,7 +6,7 @@ namespace CartService.Shared.basketRepository
     {
         Task<ShoppingCart?>GetCustomerBasket(string basketId);
 
-        Task<ShoppingCart?> UpdateCustomerBasket(ShoppingCart basket);
+        Task<ShoppingCart?> UpdateOrCustomerBasket(ShoppingCart basket);
 
         Task<bool>DeleteCustomerBasket(string basketId);
 

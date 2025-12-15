@@ -1,11 +1,12 @@
 
-using CartService.Shared.Behavior;
 using CartService.Shared.basketRepository;
+using CartService.Shared.Behavior;
+using CartService.Shared.MasTranset.Consumers;
+using MassTransit;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using StackExchange.Redis;
 using System.Reflection.Metadata.Ecma335;
-using MassTransit;
 
 namespace CartService
 {
@@ -21,7 +22,27 @@ namespace CartService
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
-           
+            builder.Services.AddMassTransit(busconfigrator =>
+            {
+                busconfigrator.SetKebabCaseEndpointNameFormatter();
+
+                busconfigrator.AddConsumer<ProductAddedToCartEventConsumer>();
+
+
+                busconfigrator.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host("rabbitmq", "/", h =>
+                    {
+                        h.Username("admin");
+                        h.Password("admin123");
+                    });
+                    cfg.ReceiveEndpoint("cart-product-added-queue", e =>
+                    {
+                        e.UseMessageRetry(x=>x.Interval(3,TimeSpan.FromSeconds(5)));
+                        e.ConfigureConsumer<ProductAddedToCartEventConsumer>(context);
+                    });
+                });
+            });
 
             builder.Services.AddMediatR(cfg =>
             {
