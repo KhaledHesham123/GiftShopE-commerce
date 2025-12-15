@@ -20,7 +20,7 @@ namespace CartService.Shared.basketRepository
             return mappedBasket;
         }
 
-        public async Task<ShoppingCart?> UpdateCustomerBasket(ShoppingCart basket)
+        public async Task<ShoppingCart?> UpdateOrCustomerBasket(ShoppingCart basket)
         {
             var jsonbasket = JsonSerializer.Serialize(basket);
 
