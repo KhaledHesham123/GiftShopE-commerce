@@ -1,10 +1,11 @@
 
 using CartService.Shared.Behavior;
-using CartService.Shared.NewFolder;
+using CartService.Shared.basketRepository;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using StackExchange.Redis;
 using System.Reflection.Metadata.Ecma335;
+using MassTransit;
 
 namespace CartService
 {
@@ -19,6 +20,8 @@ namespace CartService
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
+
+           
 
             builder.Services.AddMediatR(cfg =>
             {

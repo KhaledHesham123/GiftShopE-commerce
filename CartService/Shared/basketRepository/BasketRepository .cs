@@ -2,7 +2,7 @@
 using StackExchange.Redis;
 using System.Text.Json;
 
-namespace CartService.Shared.NewFolder
+namespace CartService.Shared.basketRepository
 {
     public class BasketRepository : IbasketRepository
     {

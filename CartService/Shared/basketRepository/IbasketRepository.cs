@@ -1,6 +1,6 @@
 ﻿using CartService.Shared.Entites;
 
-namespace CartService.Shared.NewFolder
+namespace CartService.Shared.basketRepository
 {
     public interface IbasketRepository
     {
