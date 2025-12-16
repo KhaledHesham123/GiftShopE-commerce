@@ -24,7 +24,7 @@ namespace ProductCatalogService.Features.CategoryFeatures.Commands.DeleteCategor
 
             // ensure no products depend on this category (only not-deleted products)
             var hasProducts = await _categoryRepository.Get()
-                .AnyAsync(c => c.Id == request.Id && c.Products.Any(), cancellationToken);
+                .AnyAsync(c => c.Id == request.Id /*&& c.Products.Any()*/, cancellationToken);
 
             if (hasProducts)
                 return Result<DeleteCategoryDTO>.FailResponse("Category cannot be deleted because products depend on it.",

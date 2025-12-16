@@ -17,13 +17,23 @@ namespace ProductCatalogService.Data.EntitiesConfigurations
             builder.Property(x => x.Price)
                    .HasColumnType("decimal(10,2)");
 
-            builder.Property(x => x.Discount)
+            builder.Property(x => x.DiscountPrice)
                    .HasColumnType("decimal(10,2)");
 
-            builder.HasOne(x => x.Category)
-                   .WithMany(c => c.Products)
-                   .HasForeignKey(x => x.CategoryId)
-                   .OnDelete(DeleteBehavior.Restrict);
+            builder.HasMany(p => p.Attributes)
+              .WithOne(a => a.Product)
+              .HasForeignKey(a => a.ProductId)
+              .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(p => p.Images)
+                   .WithOne(i => i.Product)
+                   .HasForeignKey(i => i.ProductId)
+                   .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(p => p.Tags)
+                   .WithOne(t => t.Product)
+                   .HasForeignKey(t => t.ProductId)
+                   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 

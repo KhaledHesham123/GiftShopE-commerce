@@ -6,7 +6,7 @@
         public bool Status { get; set; } // Active/NotActive
         public string? ImageUrl { get; set; }
 
-        public ICollection<Product> Products { get; set; } = new HashSet<Product>();
+        public ICollection<ProductCategory> ProductCategories { get; set; }
     }
 
 }
