@@ -1,8 +1,8 @@
-using ProductCatalogService.Shared.Interfaces;
+using UserProfileService.Shared.Interfaces;
 using Microsoft.EntityFrameworkCore.Storage;
-using ProductCatalogService.Data.DBContexts;
+using UserProfileService.Data.DBContexts;
 
-namespace ProductCatalogService.Shared.Repositories
+namespace UserProfileService.Shared.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {

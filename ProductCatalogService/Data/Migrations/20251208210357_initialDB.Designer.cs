@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ProductCatalogService.Data.DBContexts;
+using UserProfileService.Data.DBContexts;
 
 #nullable disable
 
-namespace ProductCatalogService.Data.Migrations
+namespace UserProfileService.Data.Migrations
 {
     [DbContext(typeof(ProductCatalogDbContext))]
     [Migration("20251208210357_initialDB")]

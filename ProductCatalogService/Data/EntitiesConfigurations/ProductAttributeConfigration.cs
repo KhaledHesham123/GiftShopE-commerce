@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Reflection.Emit;
 
-namespace ProductCatalogService.Data.EntitiesConfigurations
+namespace UserProfileService.Data.EntitiesConfigurations
 {
     public class ProductAttributeConfigration : IEntityTypeConfiguration<Shared.Entities.ProductAttribute>
     {

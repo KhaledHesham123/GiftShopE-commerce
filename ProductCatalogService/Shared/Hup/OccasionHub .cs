@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using ProductCatalogService.Features.OccasionFeatures.Add.AddOccasion.Dto;
+using UserProfileService.Features.OccasionFeatures.Add.AddOccasion.Dto;
 
-namespace ProductCatalogService.Shared.Hup
+namespace UserProfileService.Shared.Hup
 {
     public class OccasionHub:Hub
     {

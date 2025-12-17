@@ -1,8 +1,8 @@
-using ProductCatalogService.Shared.Entities;
+using UserProfileService.Shared.Entities;
 using MediatR;
 using System.Linq.Expressions;
 
-namespace ProductCatalogService.Features.Shared.Queries.CheckExist
+namespace UserProfileService.Features.Shared.Queries.CheckExist
 {
     public record CheckExistQuery<T>(Expression<Func<T, bool>> Predicate) : IRequest<Result<bool>> where T : BaseEntity;
 }

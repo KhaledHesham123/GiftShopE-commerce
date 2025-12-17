@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ProductCatalogService.Shared.Entities;
+using UserProfileService.Shared.Entities;
 
-namespace ProductCatalogService.Data.EntitiesConfigurations
+namespace UserProfileService.Data.EntitiesConfigurations
 {
     public class OccasionConfiguration : BaseEntityConfiguration<Occasion>
     {

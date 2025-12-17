@@ -1,4 +1,4 @@
-﻿namespace ProductCatalogService.Features.OccasionFeatures.Commands.UpdateOccasion
+﻿namespace UserProfileService.Features.OccasionFeatures.Commands.UpdateOccasion
 {
     public class UpdateOccasionModle
     {

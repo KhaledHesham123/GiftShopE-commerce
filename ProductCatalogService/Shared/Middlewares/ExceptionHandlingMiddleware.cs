@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using ProductCatalogService.Features.Shared;
+using UserProfileService.Features.Shared;
 
-namespace ProductCatalogService.Shared.Middlewares
+namespace UserProfileService.Shared.Middlewares
 {
     public class ExceptionHandlingMiddleware
     {

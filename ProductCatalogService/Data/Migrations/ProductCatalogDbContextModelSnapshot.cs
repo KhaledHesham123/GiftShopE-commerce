@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ProductCatalogService.Data.DBContexts;
+using UserProfileService.Data.DBContexts;
 
 #nullable disable
 
-namespace ProductCatalogService.Data.Migrations
+namespace UserProfileService.Data.Migrations
 {
     [DbContext(typeof(ProductCatalogDbContext))]
     partial class ProductCatalogDbContextModelSnapshot : ModelSnapshot
@@ -22,7 +22,7 @@ namespace ProductCatalogService.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ProductCatalogService.Shared.Entities.Category", b =>
+            modelBuilder.Entity("UserProfileService.Shared.Entities.Category", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -59,7 +59,7 @@ namespace ProductCatalogService.Data.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("ProductCatalogService.Shared.Entities.Occasion", b =>
+            modelBuilder.Entity("UserProfileService.Shared.Entities.Occasion", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -96,7 +96,7 @@ namespace ProductCatalogService.Data.Migrations
                     b.ToTable("Occasions");
                 });
 
-            modelBuilder.Entity("ProductCatalogService.Shared.Entities.Product", b =>
+            modelBuilder.Entity("UserProfileService.Shared.Entities.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -154,7 +154,7 @@ namespace ProductCatalogService.Data.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("ProductCatalogService.Shared.Entities.ProductAttribute", b =>
+            modelBuilder.Entity("UserProfileService.Shared.Entities.ProductAttribute", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -184,7 +184,7 @@ namespace ProductCatalogService.Data.Migrations
                     b.ToTable("ProductAttribute");
                 });
 
-            modelBuilder.Entity("ProductCatalogService.Shared.Entities.ProductCategory", b =>
+            modelBuilder.Entity("UserProfileService.Shared.Entities.ProductCategory", b =>
                 {
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
@@ -208,7 +208,7 @@ namespace ProductCatalogService.Data.Migrations
                     b.ToTable("ProductCategory");
                 });
 
-            modelBuilder.Entity("ProductCatalogService.Shared.Entities.ProductImage", b =>
+            modelBuilder.Entity("UserProfileService.Shared.Entities.ProductImage", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -237,7 +237,7 @@ namespace ProductCatalogService.Data.Migrations
                     b.ToTable("ProductImage");
                 });
 
-            modelBuilder.Entity("ProductCatalogService.Shared.Entities.ProductOccasion", b =>
+            modelBuilder.Entity("UserProfileService.Shared.Entities.ProductOccasion", b =>
                 {
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
@@ -261,7 +261,7 @@ namespace ProductCatalogService.Data.Migrations
                     b.ToTable("ProductOccasions");
                 });
 
-            modelBuilder.Entity("ProductCatalogService.Shared.Entities.ProductTag", b =>
+            modelBuilder.Entity("UserProfileService.Shared.Entities.ProductTag", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -287,9 +287,9 @@ namespace ProductCatalogService.Data.Migrations
                     b.ToTable("ProductTag");
                 });
 
-            modelBuilder.Entity("ProductCatalogService.Shared.Entities.ProductAttribute", b =>
+            modelBuilder.Entity("UserProfileService.Shared.Entities.ProductAttribute", b =>
                 {
-                    b.HasOne("ProductCatalogService.Shared.Entities.Product", "Product")
+                    b.HasOne("UserProfileService.Shared.Entities.Product", "Product")
                         .WithMany("Attributes")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -298,15 +298,15 @@ namespace ProductCatalogService.Data.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("ProductCatalogService.Shared.Entities.ProductCategory", b =>
+            modelBuilder.Entity("UserProfileService.Shared.Entities.ProductCategory", b =>
                 {
-                    b.HasOne("ProductCatalogService.Shared.Entities.Category", "Category")
+                    b.HasOne("UserProfileService.Shared.Entities.Category", "Category")
                         .WithMany("ProductCategories")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProductCatalogService.Shared.Entities.Product", "Product")
+                    b.HasOne("UserProfileService.Shared.Entities.Product", "Product")
                         .WithMany("ProductCategories")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -317,9 +317,9 @@ namespace ProductCatalogService.Data.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("ProductCatalogService.Shared.Entities.ProductImage", b =>
+            modelBuilder.Entity("UserProfileService.Shared.Entities.ProductImage", b =>
                 {
-                    b.HasOne("ProductCatalogService.Shared.Entities.Product", "Product")
+                    b.HasOne("UserProfileService.Shared.Entities.Product", "Product")
                         .WithMany("Images")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -328,15 +328,15 @@ namespace ProductCatalogService.Data.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("ProductCatalogService.Shared.Entities.ProductOccasion", b =>
+            modelBuilder.Entity("UserProfileService.Shared.Entities.ProductOccasion", b =>
                 {
-                    b.HasOne("ProductCatalogService.Shared.Entities.Occasion", "Occasion")
+                    b.HasOne("UserProfileService.Shared.Entities.Occasion", "Occasion")
                         .WithMany("ProductOccasions")
                         .HasForeignKey("OccasionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProductCatalogService.Shared.Entities.Product", "Product")
+                    b.HasOne("UserProfileService.Shared.Entities.Product", "Product")
                         .WithMany("ProductOccasions")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -347,9 +347,9 @@ namespace ProductCatalogService.Data.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("ProductCatalogService.Shared.Entities.ProductTag", b =>
+            modelBuilder.Entity("UserProfileService.Shared.Entities.ProductTag", b =>
                 {
-                    b.HasOne("ProductCatalogService.Shared.Entities.Product", "Product")
+                    b.HasOne("UserProfileService.Shared.Entities.Product", "Product")
                         .WithMany("Tags")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -358,17 +358,17 @@ namespace ProductCatalogService.Data.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("ProductCatalogService.Shared.Entities.Category", b =>
+            modelBuilder.Entity("UserProfileService.Shared.Entities.Category", b =>
                 {
                     b.Navigation("ProductCategories");
                 });
 
-            modelBuilder.Entity("ProductCatalogService.Shared.Entities.Occasion", b =>
+            modelBuilder.Entity("UserProfileService.Shared.Entities.Occasion", b =>
                 {
                     b.Navigation("ProductOccasions");
                 });
 
-            modelBuilder.Entity("ProductCatalogService.Shared.Entities.Product", b =>
+            modelBuilder.Entity("UserProfileService.Shared.Entities.Product", b =>
                 {
                     b.Navigation("Attributes");
 

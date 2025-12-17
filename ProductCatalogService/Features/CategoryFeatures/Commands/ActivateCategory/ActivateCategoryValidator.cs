@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace ProductCatalogService.Features.CategoryFeatures.Commands.ActivateCategory
+namespace UserProfileService.Features.CategoryFeatures.Commands.ActivateCategory
 {
     public class ActivateCategoryValidator : AbstractValidator<ActivateCategoryCommand>
     {

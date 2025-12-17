@@ -1,17 +1,17 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
-using ProductCatalogService.Features.OccasionFeatures.Add.AddOccasion.Dto;
-using ProductCatalogService.Features.Shared;
-using ProductCatalogService.Features.Shared.Queries.CheckExist;
-using ProductCatalogService.Shared.Entities;
-using ProductCatalogService.Shared.Hup;
+using UserProfileService.Features.OccasionFeatures.Add.AddOccasion.Dto;
+using UserProfileService.Features.Shared;
+using UserProfileService.Features.Shared.Queries.CheckExist;
+using UserProfileService.Shared.Entities;
+using UserProfileService.Shared.Hup;
 
 
 //using ProductCatalogService.Features.Shared.Queries.CheckExist;
-using ProductCatalogService.Shared.Interfaces;
+using UserProfileService.Shared.Interfaces;
 
-namespace ProductCatalogService.Features.OccasionFeatures.Add.AddOccasionQr
+namespace UserProfileService.Features.OccasionFeatures.Add.AddOccasionQr
 {
     public class AddOccasionQr : IAddOccasionQr
     {

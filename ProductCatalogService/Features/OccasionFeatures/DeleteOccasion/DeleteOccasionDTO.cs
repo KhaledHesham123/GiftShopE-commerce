@@ -1,4 +1,4 @@
-﻿namespace ProductCatalogService.Features.OccasionFeatures.DeleteOccasion
+﻿namespace UserProfileService.Features.OccasionFeatures.DeleteOccasion
 {
     public class DeleteOccasionDTO
     {

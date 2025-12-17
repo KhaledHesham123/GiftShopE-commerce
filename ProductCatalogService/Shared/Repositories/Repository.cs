@@ -2,12 +2,12 @@
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using ProductCatalogService.Data.DBContexts;
-using ProductCatalogService.Shared.Entities;
-using ProductCatalogService.Shared.Interfaces;
+using UserProfileService.Data.DBContexts;
+using UserProfileService.Shared.Entities;
+using UserProfileService.Shared.Interfaces;
 using System.Linq.Expressions;
 
-namespace ProductCatalogService.Shared.Repositories
+namespace UserProfileService.Shared.Repositories
 {
     public class Repository<T> : IRepository<T> where T : BaseEntity
     {

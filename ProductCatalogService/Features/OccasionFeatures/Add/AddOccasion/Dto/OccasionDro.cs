@@ -1,4 +1,4 @@
-﻿namespace ProductCatalogService.Features.OccasionFeatures.Add.AddOccasion.Dto
+﻿namespace UserProfileService.Features.OccasionFeatures.Add.AddOccasion.Dto
 {
     public class OccasionDro
     {

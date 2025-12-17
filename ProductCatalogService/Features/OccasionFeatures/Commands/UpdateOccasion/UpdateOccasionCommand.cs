@@ -1,13 +1,13 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.SignalR;
-using ProductCatalogService.Features.CategoryFeatures.Commands.UpdateCategory;
-using ProductCatalogService.Features.OccasionFeatures.Add.AddOccasion.Dto;
-using ProductCatalogService.Features.Shared;
-using ProductCatalogService.Shared.Entities;
-using ProductCatalogService.Shared.Hup;
-using ProductCatalogService.Shared.Interfaces;
+using UserProfileService.Features.CategoryFeatures.Commands.UpdateCategory;
+using UserProfileService.Features.OccasionFeatures.Add.AddOccasion.Dto;
+using UserProfileService.Features.Shared;
+using UserProfileService.Shared.Entities;
+using UserProfileService.Shared.Hup;
+using UserProfileService.Shared.Interfaces;
 
-namespace ProductCatalogService.Features.OccasionFeatures.Commands.UpdateOccasion
+namespace UserProfileService.Features.OccasionFeatures.Commands.UpdateOccasion
 {
     public record UpdateOccasionCommand(Guid Occasionid, string Name, bool Status) : IRequest<Result<bool>>;
 

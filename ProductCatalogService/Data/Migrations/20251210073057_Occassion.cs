@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace ProductCatalogService.Data.Migrations
+namespace UserProfileService.Data.Migrations
 {
     /// <inheritdoc />
     public partial class Occassion : Migration

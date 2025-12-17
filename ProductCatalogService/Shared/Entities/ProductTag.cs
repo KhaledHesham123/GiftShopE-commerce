@@ -1,4 +1,4 @@
-﻿namespace ProductCatalogService.Shared.Entities
+﻿namespace UserProfileService.Shared.Entities
 {
     public class ProductTag : BaseEntity
     {

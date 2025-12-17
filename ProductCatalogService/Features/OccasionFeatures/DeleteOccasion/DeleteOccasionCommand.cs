@@ -1,7 +1,7 @@
 ﻿using MediatR;
-using ProductCatalogService.Features.Shared;
+using UserProfileService.Features.Shared;
 
-namespace ProductCatalogService.Features.OccasionFeatures.DeleteOccasion
+namespace UserProfileService.Features.OccasionFeatures.DeleteOccasion
 {
     public record DeleteOccasionCommand(Guid occasionId) : IRequest<Result<DeleteOccasionDTO>>
     {

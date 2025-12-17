@@ -1,4 +1,4 @@
-namespace ProductCatalogService.Features.CategoryFeatures.Commands.DeleteCategory
+namespace UserProfileService.Features.CategoryFeatures.Commands.DeleteCategory
 {
     public class DeleteCategoryDTO
     {

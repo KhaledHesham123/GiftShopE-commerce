@@ -1,8 +1,8 @@
 using FluentValidation;
-using ProductCatalogService.Shared.Entities;
-using ProductCatalogService.Shared.Interfaces;
+using UserProfileService.Shared.Entities;
+using UserProfileService.Shared.Interfaces;
 
-namespace ProductCatalogService.Features.CategoryFeatures.Commands.UpdateCategory
+namespace UserProfileService.Features.CategoryFeatures.Commands.UpdateCategory
 {
     public class UpdateCategoryValidator : AbstractValidator<UpdateCategoryCommand>
     {

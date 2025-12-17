@@ -1,10 +1,10 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using ProductCatalogService.Features.Shared;
-using ProductCatalogService.Shared.Entities;
-using ProductCatalogService.Shared.Interfaces;
+using UserProfileService.Features.Shared;
+using UserProfileService.Shared.Entities;
+using UserProfileService.Shared.Interfaces;
 
-namespace ProductCatalogService.Features.CategoryFeatures.Commands.DeleteCategory
+namespace UserProfileService.Features.CategoryFeatures.Commands.DeleteCategory
 {
     public class DeleteCategoryCommandHandler : IRequestHandler<DeleteCategoryCommand, Result<DeleteCategoryDTO>>
     {

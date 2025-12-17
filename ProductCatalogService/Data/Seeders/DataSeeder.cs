@@ -1,8 +1,8 @@
-﻿using ProductCatalogService.Data.DBContexts;
-using ProductCatalogService.Shared.Entities;
+﻿using UserProfileService.Data.DBContexts;
+using UserProfileService.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace ProductCatalogService.Data.Seeders
+namespace UserProfileService.Data.Seeders
 {
     public class DataSeeder
     {

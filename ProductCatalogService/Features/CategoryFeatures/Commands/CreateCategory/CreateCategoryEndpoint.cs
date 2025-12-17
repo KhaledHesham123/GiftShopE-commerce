@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using ProductCatalogService.Features.Shared;
+using UserProfileService.Features.Shared;
 
-namespace ProductCatalogService.Features.CategoryFeatures.Commands.CreateCategory
+namespace UserProfileService.Features.CategoryFeatures.Commands.CreateCategory
 {
     [ApiController]
     [Route("[controller]")]
