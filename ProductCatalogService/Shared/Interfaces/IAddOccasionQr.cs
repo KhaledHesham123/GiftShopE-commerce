@@ -1,11 +1,11 @@
 ﻿using Microsoft.Identity.Client;
-using ProductCatalogService.Features.OccasionFeatures.Add.AddOccasion.Dto;
-using ProductCatalogService.Features.Shared;
+using UserProfileService.Features.OccasionFeatures.Add.AddOccasion.Dto;
+using UserProfileService.Features.Shared;
 
-namespace ProductCatalogService.Shared.Interfaces
+namespace UserProfileService.Shared.Interfaces
 {
     public interface  IAddOccasionQr
     {
-        Task<ProductCatalogService.Features.Shared.Result<bool>> IAddOccasion(OccasionRequest Request);
+        Task<UserProfileService.Features.Shared.Result<bool>> IAddOccasion(OccasionRequest Request);
     }
 }

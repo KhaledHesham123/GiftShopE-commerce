@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ProductCatalogService.Shared.Entities;
+using UserProfileService.Shared.Entities;
 using System.Reflection.Emit;
 
-namespace ProductCatalogService.Data.EntitiesConfigurations
+namespace UserProfileService.Data.EntitiesConfigurations
 {
     public class ProductOccasionConfigration : IEntityTypeConfiguration<Shared.Entities.ProductOccasion>
     {

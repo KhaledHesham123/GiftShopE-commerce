@@ -1,4 +1,4 @@
-﻿namespace ProductCatalogService.Features.CategoryFeatures.Commands.CreateCategory
+﻿namespace UserProfileService.Features.CategoryFeatures.Commands.CreateCategory
 {
     public class CreateCategoryDTO
     {

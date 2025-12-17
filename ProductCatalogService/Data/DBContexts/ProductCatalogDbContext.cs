@@ -1,9 +1,9 @@
-﻿using ProductCatalogService.Data.EntitiesConfigurations;
-using ProductCatalogService.Shared.Entities;
+﻿using UserProfileService.Data.EntitiesConfigurations;
+using UserProfileService.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
-namespace ProductCatalogService.Data.DBContexts
+namespace UserProfileService.Data.DBContexts
 {
     public class ProductCatalogDbContext : DbContext
     {

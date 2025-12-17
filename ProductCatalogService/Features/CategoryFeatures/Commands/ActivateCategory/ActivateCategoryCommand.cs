@@ -1,7 +1,7 @@
 using MediatR;
-using ProductCatalogService.Features.Shared;
+using UserProfileService.Features.Shared;
 
-namespace ProductCatalogService.Features.CategoryFeatures.Commands.ActivateCategory
+namespace UserProfileService.Features.CategoryFeatures.Commands.ActivateCategory
 {
     public record ActivateCategoryCommand(Guid Id, bool IsActive) : IRequest<Result<ActivateCategoryDTO>>;
 }

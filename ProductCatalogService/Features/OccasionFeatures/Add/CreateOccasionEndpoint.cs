@@ -1,12 +1,12 @@
 ﻿using Azure.Core;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using ProductCatalogService.Features.CategoryFeatures.Commands.UpdateCategory;
-using ProductCatalogService.Features.OccasionFeatures.Add.AddOccasion.Dto;
-using ProductCatalogService.Features.Shared;
-using ProductCatalogService.Shared.Interfaces;
+using UserProfileService.Features.CategoryFeatures.Commands.UpdateCategory;
+using UserProfileService.Features.OccasionFeatures.Add.AddOccasion.Dto;
+using UserProfileService.Features.Shared;
+using UserProfileService.Shared.Interfaces;
 
-namespace ProductCatalogService.Features.OccasionFeatures.Add
+namespace UserProfileService.Features.OccasionFeatures.Add
 {
      [ApiController]
     [Route("[controller]")]

@@ -1,8 +1,8 @@
-﻿using ProductCatalogService.Shared.Entities;
+﻿using UserProfileService.Shared.Entities;
 using MediatR;
 using System.Linq.Expressions;
 
-namespace ProductCatalogService.Features.Shared.Queries.GetByCriteria
+namespace UserProfileService.Features.Shared.Queries.GetByCriteria
 {
     public class GetByCriteriaQuery<TRequest,TResponse> : IRequest<Result<TResponse>> where TRequest :  BaseEntity
     {

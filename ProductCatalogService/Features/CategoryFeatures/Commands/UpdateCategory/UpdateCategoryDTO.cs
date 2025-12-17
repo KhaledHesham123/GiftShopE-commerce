@@ -1,4 +1,4 @@
-namespace ProductCatalogService.Features.CategoryFeatures.Commands.UpdateCategory
+namespace UserProfileService.Features.CategoryFeatures.Commands.UpdateCategory
 {
     public class UpdateCategoryDTO
     {

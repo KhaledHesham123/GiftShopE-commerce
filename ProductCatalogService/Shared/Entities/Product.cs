@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ProductCatalogService.Shared.Entities
+namespace UserProfileService.Shared.Entities
 {
     public class Product : BaseEntity
     {
