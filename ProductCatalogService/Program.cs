@@ -39,7 +39,7 @@ namespace ProductCatalogService
             builder.Services.AddSignalR();
             builder.Services.AddDbContext<ProductCatalogDbContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("ProductCatalogDatabase"));
             });
             builder.Services.AddScoped<IAddOccasionQr, AddOccasionQr>();
             builder.Services.AddScoped<IImageHelper, ImageHelper>();

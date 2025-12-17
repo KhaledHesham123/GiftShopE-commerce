@@ -13,7 +13,7 @@ namespace ProductCatalogService.Features.ProductFeatures.UpdateProduct
         {
             var product =await _productRepository.GetAll()
                                             .Include(p => p.ProductOccasions)
-                                            .Include(p => p.ProductTags)
+                                            .Include(p => p.Tags)
                                             .Include(p => p.Images)
                                             .FirstOrDefaultAsync(p => p.Id == request.ProductId);
             if (product == null)
@@ -44,7 +44,7 @@ namespace ProductCatalogService.Features.ProductFeatures.UpdateProduct
                 });
             }
             //tags
-            product.ProductTags.Clear();    
+            product.Tags.Clear();    
             foreach (var tagName in request.Tags)
             {
                 var tag =await _tagRepository.FirstOrDefaultAsync(t => t.Name.ToLower() == tagName.ToLower(),cancellationToken);
@@ -55,7 +55,7 @@ namespace ProductCatalogService.Features.ProductFeatures.UpdateProduct
                         Name = tagName,
                     };
                 }
-                product.ProductTags.Add(new ProductTag
+                product.Tags.Add(new ProductTag
                 {
                     Tag = tag,
                 });

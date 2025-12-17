@@ -1,10 +1,11 @@
 ﻿namespace ProductCatalogService.Shared.Entities
 {
-    public class ProductImage:BaseEntity
+    public class ProductAttribute : BaseEntity
     {
         public Guid ProductId { get; set; }
         public Product Product { get; set; }
-        public string ImageUrl { get; set; }
-        public bool IsMain { get; set; }
+
+        public string Name { get; set; }
+        public string Value { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace ProductCatalogService.Data.EntitiesConfigurations
         public void Configure(EntityTypeBuilder<ProductTag> builder)
         {
             builder.HasOne(pt => pt.Product)
-                   .WithMany(p => p.ProductTags)
+                   .WithMany(p => p.Tags)
                    .HasForeignKey(pt => pt.ProductId);
 
             builder.HasOne(pt => pt.Tag)

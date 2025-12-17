@@ -49,7 +49,7 @@ namespace ProductCatalogService.Features.ProductFeatures.CreateProduct
                         Name = tagName
                     };
                 }             
-                product.ProductTags .Add(new ProductTag
+                product.Tags .Add(new ProductTag
                 {
                    Tag = tag
                 });
