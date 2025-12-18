@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using UserProfileService.Features.Shared;
-using UserProfileService.Shared.Entities;
-using UserProfileService.Shared.Interfaces;
+using ProductCatalogService.Features.Shared;
+using ProductCatalogService.Shared.Entities;
+using ProductCatalogService.Shared.Interfaces;
 
-namespace UserProfileService.Features.OccasionFeatures.DeleteOccasion
+namespace ProductCatalogService.Features.OccasionFeatures.DeleteOccasion
 {
     public class DeleteOccasionCommandHandler(IRepository<Occasion> _occasionRepository , IUnitOfWork _unitOfWork) : IRequestHandler<DeleteOccasionCommand, Result<DeleteOccasionDTO>>
     {

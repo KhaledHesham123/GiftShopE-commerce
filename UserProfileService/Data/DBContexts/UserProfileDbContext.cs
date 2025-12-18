@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using UserProfileService.Shared.Entities;
+using ProductCatalogService.Shared.Entities;
 
-namespace UserProfileService.Data.DBContexts
+namespace ProductCatalogService.Data.DBContexts
 {
     public class UserProfileDbContext : DbContext
     {

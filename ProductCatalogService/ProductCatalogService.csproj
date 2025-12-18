@@ -46,6 +46,7 @@
 		<Folder Include="Shared\Configurations\" />
 		<Folder Include="Shared\Enums\" />
 		<Folder Include="Shared\Services\" />
+		<Folder Include="wwwroot\Images\Products\" />
 		<Folder Include="wwwroot\Images\Occasion\" />
 	</ItemGroup>
 

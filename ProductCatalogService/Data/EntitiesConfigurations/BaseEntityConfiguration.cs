@@ -1,8 +1,8 @@
-﻿using UserProfileService.Shared.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using ProductCatalogService.Shared.Entities;
 
-namespace UserProfileService.Data.EntitiesConfigurations
+namespace ProductCatalogService.Data.EntitiesConfigurations
 {
     public class BaseEntityConfiguration<T> : IEntityTypeConfiguration<T>
         where T : BaseEntity

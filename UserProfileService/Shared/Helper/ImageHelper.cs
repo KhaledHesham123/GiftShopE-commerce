@@ -1,8 +1,8 @@
 ﻿
-using UserProfileService.Shared.Interfaces;
+using ProductCatalogService.Shared.Interfaces;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace UserProfileService.Shared.Helper;
+namespace ProductCatalogService.Shared.Helper;
 
 public class ImageHelper(IWebHostEnvironment env, IHttpContextAccessor httpContextAccessor) : IImageHelper
 {

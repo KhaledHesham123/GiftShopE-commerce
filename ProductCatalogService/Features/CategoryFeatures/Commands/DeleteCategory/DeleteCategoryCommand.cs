@@ -1,7 +1,7 @@
 using MediatR;
-using UserProfileService.Features.Shared;
+using ProductCatalogService.Features.Shared;
 
-namespace UserProfileService.Features.CategoryFeatures.Commands.DeleteCategory
+namespace ProductCatalogService.Features.CategoryFeatures.Commands.DeleteCategory
 {
     public record DeleteCategoryCommand(Guid Id) : IRequest<Result<DeleteCategoryDTO>>;
 }

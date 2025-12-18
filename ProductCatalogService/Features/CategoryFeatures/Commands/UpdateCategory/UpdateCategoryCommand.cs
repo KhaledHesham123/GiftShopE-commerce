@@ -1,7 +1,7 @@
 using MediatR;
-using UserProfileService.Features.Shared;
+using ProductCatalogService.Features.Shared;
 
-namespace UserProfileService.Features.CategoryFeatures.Commands.UpdateCategory
+namespace ProductCatalogService.Features.CategoryFeatures.Commands.UpdateCategory
 {
     public record UpdateCategoryCommand(Guid Id, string Name, bool IsActive) : IRequest<Result<UpdateCategoryDTO>>;
 }

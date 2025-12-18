@@ -1,12 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using UserProfileService.Shared.Entities;
-using System.Reflection.Emit;
+using ProductCatalogService.Shared.Entities;
 
-namespace UserProfileService.Data.EntitiesConfigurations
+namespace ProductCatalogService.Data.EntitiesConfigurations
 {
-    public class ProductOccasionConfigration : IEntityTypeConfiguration<Shared.Entities.ProductOccasion>
+    public class ProductOccasionConfiguration : IEntityTypeConfiguration<ProductOccasion>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Shared.Entities.ProductOccasion> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<ProductOccasion> builder)
         {
             builder.HasKey(po => new { po.ProductId, po.OccasionId });
 

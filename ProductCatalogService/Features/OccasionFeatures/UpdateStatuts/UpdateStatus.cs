@@ -1,16 +1,16 @@
 ﻿using Azure.Core;
 using MediatR;
 using Microsoft.AspNetCore.SignalR;
-using UserProfileService.Features.OccasionFeatures.Add.AddOccasion.Dto;
-using UserProfileService.Features.Shared;
-using UserProfileService.Shared.Hup;
-using UserProfileService.Shared.Interfaces;
+using ProductCatalogService.Features.OccasionFeatures.Add.AddOccasion.Dto;
+using ProductCatalogService.Features.Shared;
+using ProductCatalogService.Shared.Hup;
+using ProductCatalogService.Shared.Interfaces;
 
-namespace UserProfileService.Features.OccasionFeatures.UpdateStatuts
+namespace ProductCatalogService.Features.OccasionFeatures.UpdateStatuts
 {
     public record UpdateStatus(Guid id , bool Status):IRequest<Result<bool>>;
 
-    public class UpdateStatusHandler(IRepository<UserProfileService.Shared.Entities.Occasion> _repository, IHubContext<OccasionHub> _hub , IImageHelper image) : IRequestHandler<UpdateStatus, Result<bool>>
+    public class UpdateStatusHandler(IRepository<ProductCatalogService.Shared.Entities.Occasion> _repository, IHubContext<OccasionHub> _hub , IImageHelper image) : IRequestHandler<UpdateStatus, Result<bool>>
     {
 
         public async Task<Result<bool>> Handle(UpdateStatus request, CancellationToken cancellationToken)

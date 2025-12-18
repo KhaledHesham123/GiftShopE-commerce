@@ -1,10 +1,10 @@
-﻿using UserProfileService.Data.DBContexts;
-using UserProfileService.Shared.Entities;
-using UserProfileService.Shared.Interfaces;
+﻿using ProductCatalogService.Data.DBContexts;
+using ProductCatalogService.Shared.Entities;
+using ProductCatalogService.Shared.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace UserProfileService.Features.Shared.Queries.GetByCriteria
+namespace ProductCatalogService.Features.Shared.Queries.GetByCriteria
 {
     public class GetByCriteriaQueryHandler<TRequest, TReaponse> : IRequestHandler<GetByCriteriaQuery<TRequest, TReaponse>, Result<TReaponse>> where TRequest : BaseEntity
     {

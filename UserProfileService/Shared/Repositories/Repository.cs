@@ -3,11 +3,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq.Expressions;
-using UserProfileService.Data.DBContexts;
-using UserProfileService.Shared.Entities;
-using UserProfileService.Shared.Interfaces;
+using ProductCatalogService.Data.DBContexts;
+using ProductCatalogService.Shared.Entities;
+using ProductCatalogService.Shared.Interfaces;
 
-namespace UserProfileService.Shared.Repositories
+namespace ProductCatalogService.Shared.Repositories
 {
     public class Repository<T> : IRepository<T> where T : BaseEntity
     {

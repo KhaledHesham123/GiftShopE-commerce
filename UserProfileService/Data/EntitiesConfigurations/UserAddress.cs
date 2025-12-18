@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace UserProfileService.Data.EntitiesConfigurations
+namespace ProductCatalogService.Data.EntitiesConfigurations
 {
-    public class UserAddress : IEntityTypeConfiguration<UserProfileService.Shared.Entities.UserAddress>
+    public class UserAddress : IEntityTypeConfiguration<ProductCatalogService.Shared.Entities.UserAddress>
     {
         public void Configure(EntityTypeBuilder<Shared.Entities.UserAddress> builder)
         {

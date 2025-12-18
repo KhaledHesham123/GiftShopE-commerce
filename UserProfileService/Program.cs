@@ -1,8 +1,8 @@
 
 using Microsoft.EntityFrameworkCore;
-using UserProfileService.Data.DBContexts;
+using ProductCatalogService.Data.DBContexts;
 
-namespace UserProfileService
+namespace ProductCatalogService
 {
     public class Program
     {

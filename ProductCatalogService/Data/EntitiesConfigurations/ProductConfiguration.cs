@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using UserProfileService.Shared.Entities;
+using ProductCatalogService.Shared.Entities;
 
-namespace UserProfileService.Data.EntitiesConfigurations
+namespace ProductCatalogService.Data.EntitiesConfigurations
 {
     public class ProductConfiguration : BaseEntityConfiguration<Product>
     {

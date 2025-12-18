@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using UserProfileService.Features.Shared;
+using ProductCatalogService.Features.Shared;
 
-namespace UserProfileService.Features.OccasionFeatures.DeleteOccasion
+namespace ProductCatalogService.Features.OccasionFeatures.DeleteOccasion
 {
     [ApiController]
     [Route("api/[Controller]")]

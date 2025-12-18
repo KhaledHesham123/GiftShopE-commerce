@@ -1,7 +1,7 @@
-﻿using UserProfileService.Data.DBContexts;
-using UserProfileService.Shared.Interfaces;
+﻿using ProductCatalogService.Data.DBContexts;
+using ProductCatalogService.Shared.Interfaces;
 
-namespace UserProfileService.Shared.Middlewares
+namespace ProductCatalogService.Shared.Middlewares
 {
     public class TransactionMiddleware
     {

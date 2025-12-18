@@ -1,6 +1,4 @@
-﻿
-
-namespace UserProfileService.Shared.Entities
+﻿namespace ProductCatalogService.Shared.Entities
 {
     public class BaseEntity
     {
