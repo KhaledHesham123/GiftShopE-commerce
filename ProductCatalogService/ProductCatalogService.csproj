@@ -43,6 +43,7 @@
 	<ItemGroup>
 		<Folder Include="Data\Migrations\" />
 		<Folder Include="Features\CategoryFeatures\Queries\" />
+		<Folder Include="Features\ProductFeatures\Commands\AddProducTOCart\" />
 		<Folder Include="Shared\Configurations\" />
 		<Folder Include="Shared\Enums\" />
 		<Folder Include="Shared\Services\" />
