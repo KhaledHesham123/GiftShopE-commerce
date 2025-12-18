@@ -18,14 +18,14 @@ namespace CartService.Shared.MasTranset.Consumers
         {
             var message = context.Message;
 
-            if (string.IsNullOrEmpty(message.ShoppingCartId) || message.UserId == Guid.Empty)
+            if ( message.UserId == Guid.Empty)
             {
                 logger.LogError("Invalid ProductAddedToCartEvent received: {Message}", message);
                 return;
             }
 
             var addProductToCartReslut = await mediator.Send(new addProducToCartCommand
-                (ShoppingCartId: message.ShoppingCartId,
+                (ShoppingCartId: message.UserId.ToString(),
                 userid: message.UserId,
                 ProductId: message.ProductId,
                 ProductName: message.Name,

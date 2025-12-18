@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using ProductCatalogService.Shared.Entities;
+using ProductCatalogService.Shared.Interfaces;
 using UserProfileService.Respones;
-using UserProfileService.Shared.Entities;
-using UserProfileService.Shared.Interfaces;
 
 namespace UserProfileService.Features.UserProfileFeature.Commands.EditUserProfile
 {
