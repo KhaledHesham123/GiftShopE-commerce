@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using UserProfileService.Shared.Entities;
+using ProductCatalogService.Shared.Entities;
 using System.Linq.Expressions;
 
-namespace UserProfileService.Shared.Interfaces
+namespace ProductCatalogService.Shared.Interfaces
 {
     public interface IRepository<T> where T : BaseEntity
     {

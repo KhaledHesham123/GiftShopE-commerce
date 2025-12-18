@@ -22,7 +22,7 @@ namespace ProductCatalogService.Features.ProductFeatures.UpdateProduct
             product.Name = request.Name;
             product.Description = request.Description;
             product.Price= request.Price;
-            product.Status = request.Status;
+            product.IsActive = request.IsActive;
             //Categoery
             var categoryExists =await _categoryRepository.ExistsAsync(request.CategoryId, cancellationToken);
             if(!categoryExists)
@@ -74,6 +74,15 @@ namespace ProductCatalogService.Features.ProductFeatures.UpdateProduct
                 product.Images.Add(new ProductImage
                 {
                     ImageUrl = imageUrl
+                });
+            }
+            //Attributes
+            foreach (var attribute in request.Attributes)
+            {
+                product.Attributes.Add(new ProductAttribute
+                {
+                    Name = attribute.Name,
+                    Quentity = attribute.Quentity
                 });
             }
             await _unitOfWork.SaveChangesAsync(cancellationToken);

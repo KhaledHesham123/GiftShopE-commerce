@@ -14,11 +14,12 @@ namespace ProductCatalogService.Features.ProductFeatures.CreateProduct
             var result = await _mediator.Send(new CreateProductCommand(productDto.Name,
                                                                      productDto.Description,
                                                                      productDto.Price,
-                                                                     productDto.Status,
+                                                                     productDto.IsActive,
                                                                      productDto.CategoryId,
-                                                                     productDto.OccasionIds,
+                                                                     productDto.OccasionIds,                                                                   
                                                                      productDto.Tags,
-                                                                     productDto.Images));
+                                                                     productDto.Images,
+                                                                     productDto.Attributes));
             return StatusCode(result.StatusCode , result);
         }
     }

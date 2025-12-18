@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace UserProfileService.Features.OccasionFeatures.DeleteOccasion
+namespace ProductCatalogService.Features.OccasionFeatures.DeleteOccasion
 {
     public class DeleteOccasionCommandValidator : AbstractValidator<DeleteOccasionCommand>
     {

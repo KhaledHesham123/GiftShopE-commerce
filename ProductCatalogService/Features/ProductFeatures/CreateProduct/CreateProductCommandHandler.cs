@@ -29,7 +29,7 @@ namespace ProductCatalogService.Features.ProductFeatures.CreateProduct
                  Name = request.Name,
                   Description = request.Description,
                   Price = request.Price,
-                  Status = request.Status,
+                  IsActive = request.IsActive,
                   CategoryId = request.CategoryId,
             };
             foreach ( var id in request.OccasionIds.Distinct())
@@ -62,6 +62,15 @@ namespace ProductCatalogService.Features.ProductFeatures.CreateProduct
                 {
                     ImageUrl = imageUrl
                 });
+            }
+            foreach (var attribute in request.Attributes)
+            {
+                var productAttribute = new ProductAttribute
+                {
+                    Name = attribute.Name,
+                    Quentity = attribute.Quentity,
+                };
+                product.Attributes .Add(productAttribute);
             }
             await _productRepository.AddAsync(product , cancellationToken);
             await _unitOfWork.SaveChangesAsync();

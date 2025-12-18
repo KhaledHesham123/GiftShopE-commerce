@@ -1,9 +1,9 @@
 ﻿using MediatR;
-using UserProfileService.Features.Shared;
-using UserProfileService.Shared.Entities;
-using UserProfileService.Shared.Interfaces;
+using ProductCatalogService.Features.Shared;
+using ProductCatalogService.Shared.Entities;
+using ProductCatalogService.Shared.Interfaces;
 
-namespace UserProfileService.Features.CategoryFeatures.Commands.CreateCategory
+namespace ProductCatalogService.Features.CategoryFeatures.Commands.CreateCategory
 {
     public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, Result<CreateCategoryDTO>>
     {

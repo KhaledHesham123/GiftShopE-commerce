@@ -1,6 +1,6 @@
-﻿using UserProfileService.Shared.Interfaces;
+﻿using ProductCatalogService.Shared.Interfaces;
 
-namespace UserProfileService.Shared.Middlewares
+namespace ProductCatalogService.Shared.Middlewares
 {
     public class SaveChangesMiddleware
     {

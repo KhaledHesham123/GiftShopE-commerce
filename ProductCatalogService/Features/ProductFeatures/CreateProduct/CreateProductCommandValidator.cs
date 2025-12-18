@@ -10,6 +10,7 @@ namespace ProductCatalogService.Features.ProductFeatures.CreateProduct
             RuleFor(x => x.Price).GreaterThan(0);
             RuleFor(x => x.CategoryId).NotEmpty();
             RuleFor(x => x.OccasionIds).NotEmpty();
+            RuleFor(x => x.Attributes).NotEmpty();
             RuleFor(x => x.Images).NotEmpty();
         }
     }

@@ -1,4 +1,4 @@
-namespace UserProfileService.Features.CategoryFeatures.Commands.ActivateCategory
+namespace ProductCatalogService.Features.CategoryFeatures.Commands.ActivateCategory
 {
     public class ActivateCategoryDTO
     {

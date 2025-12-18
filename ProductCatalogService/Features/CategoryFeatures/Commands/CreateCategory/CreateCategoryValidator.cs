@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
-using UserProfileService.Shared.Entities;
-using UserProfileService.Shared.Interfaces;
+using ProductCatalogService.Shared.Entities;
+using ProductCatalogService.Shared.Interfaces;
 
-namespace UserProfileService.Features.CategoryFeatures.Commands.CreateCategory
+namespace ProductCatalogService.Features.CategoryFeatures.Commands.CreateCategory
 {
     public class CreateCategoryValidator : AbstractValidator<CreateCategoryCommand>
     {

@@ -1,9 +1,9 @@
 using MediatR;
-using UserProfileService.Features.Shared;
-using UserProfileService.Shared.Entities;
-using UserProfileService.Shared.Interfaces;
+using ProductCatalogService.Features.Shared;
+using ProductCatalogService.Shared.Entities;
+using ProductCatalogService.Shared.Interfaces;
 
-namespace UserProfileService.Features.CategoryFeatures.Commands.UpdateCategory
+namespace ProductCatalogService.Features.CategoryFeatures.Commands.UpdateCategory
 {
     public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryCommand, Result<UpdateCategoryDTO>>
     {

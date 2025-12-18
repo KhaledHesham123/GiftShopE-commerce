@@ -7,11 +7,10 @@ namespace ProductCatalogService.Features.ProductFeatures.CreateProduct
     string Name, 
     string Description, 
     decimal Price , 
-    bool Status,
+    bool IsActive,
     Guid CategoryId,
     List<Guid> OccasionIds,
     List<string> Tags,
-    List<IFormFile> Images) : IRequest<Result<Guid>>;
-
-
+    List<IFormFile> Images,
+    List<ProductAttributeDto>  Attributes) : IRequest<Result<Guid>>;
 }

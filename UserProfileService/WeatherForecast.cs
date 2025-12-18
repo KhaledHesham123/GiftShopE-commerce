@@ -1,4 +1,4 @@
-namespace UserProfileService
+namespace ProductCatalogService
 {
     public class WeatherForecast
     {

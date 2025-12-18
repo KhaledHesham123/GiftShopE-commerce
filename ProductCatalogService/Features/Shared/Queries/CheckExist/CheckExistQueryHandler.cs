@@ -1,8 +1,8 @@
-using UserProfileService.Shared.Entities;
-using UserProfileService.Shared.Interfaces;
+using ProductCatalogService.Shared.Entities;
+using ProductCatalogService.Shared.Interfaces;
 using MediatR;
 
-namespace UserProfileService.Features.Shared.Queries.CheckExist
+namespace ProductCatalogService.Features.Shared.Queries.CheckExist
 {
     public class CheckExistQueryHandler<T> : IRequestHandler<CheckExistQuery<T>, Result<bool>> where T : BaseEntity
     {

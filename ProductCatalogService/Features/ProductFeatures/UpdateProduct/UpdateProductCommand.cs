@@ -8,10 +8,11 @@ namespace ProductCatalogService.Features.ProductFeatures.UpdateProduct
     string Description,
     decimal Price,
     int Stock,
-    bool Status,
+    bool IsActive,
     Guid CategoryId,
     List<Guid> OccasionIds,
     List<string> Tags,
     List<IFormFile>? NewImages,
-    List<Guid>? RemovedImageIds) : IRequest<Result<string>>;
+    List<ProductAttributeDto> Attributes
+    ) : IRequest<Result<string>>;
 }

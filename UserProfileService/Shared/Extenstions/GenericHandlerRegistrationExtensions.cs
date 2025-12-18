@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace UserProfileService.Shared.Extenstions
+namespace ProductCatalogService.Shared.Extenstions
 {
     public static class GenericHandlerRegistrationExtensions
     {

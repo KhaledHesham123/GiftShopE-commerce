@@ -1,4 +1,4 @@
-namespace UserProfileService.Shared.Interfaces
+namespace ProductCatalogService.Shared.Interfaces
 {
     public interface IUnitOfWork
     {

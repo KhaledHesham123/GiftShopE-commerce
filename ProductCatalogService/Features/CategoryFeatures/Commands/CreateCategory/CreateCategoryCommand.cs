@@ -1,7 +1,7 @@
 ﻿using MediatR;
-using UserProfileService.Features.Shared;
+using ProductCatalogService.Features.Shared;
 
-namespace UserProfileService.Features.CategoryFeatures.Commands.CreateCategory
+namespace ProductCatalogService.Features.CategoryFeatures.Commands.CreateCategory
 {
     public record CreateCategoryCommand(string Name, bool IsActive) : IRequest<Result<CreateCategoryDTO>>;
 }

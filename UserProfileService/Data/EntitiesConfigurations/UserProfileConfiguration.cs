@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using UserProfileService.Shared.Entities;
+using ProductCatalogService.Shared.Entities;
 
 public class UserProfileConfiguration : IEntityTypeConfiguration<UserProfile>
 {

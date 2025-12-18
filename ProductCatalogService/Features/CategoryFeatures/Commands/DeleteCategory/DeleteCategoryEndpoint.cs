@@ -1,8 +1,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using UserProfileService.Features.Shared;
+using ProductCatalogService.Features.Shared;
 
-namespace UserProfileService.Features.CategoryFeatures.Commands.DeleteCategory
+namespace ProductCatalogService.Features.CategoryFeatures.Commands.DeleteCategory
 {
     [ApiController]
     [Route("[controller]")]

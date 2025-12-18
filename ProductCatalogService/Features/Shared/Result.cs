@@ -1,4 +1,4 @@
-﻿namespace UserProfileService.Features.Shared
+﻿namespace ProductCatalogService.Features.Shared
 {
     public class Result<TData>
     {

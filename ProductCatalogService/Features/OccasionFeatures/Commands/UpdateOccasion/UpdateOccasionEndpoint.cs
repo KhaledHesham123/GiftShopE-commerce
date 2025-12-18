@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace UserProfileService.Features.OccasionFeatures.Commands.UpdateOccasion
+namespace ProductCatalogService.Features.OccasionFeatures.Commands.UpdateOccasion
 {
     public static class UpdateOccasionEndpoint
     {
