@@ -1,4 +1,4 @@
-﻿namespace CartService.Shared.MasTranset
+﻿namespace ProductCatalogService.Shared.MasTranset.Events
 {
     public class ProductAddedToCartEvent
     {
@@ -8,6 +8,5 @@
         public decimal Price { get; init; }
         public string ProductImageUrl { get; set; }
         public int Quantity { get; set; }
-
     }
 }

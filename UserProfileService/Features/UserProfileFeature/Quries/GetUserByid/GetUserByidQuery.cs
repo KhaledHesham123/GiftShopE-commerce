@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using ProductCatalogService.Shared.Entities;
+using ProductCatalogService.Shared.Interfaces;
 using UserProfileService.Features.UserProfileFeature.DTOs;
 using UserProfileService.Respones;
-using UserProfileService.Shared.Entities;
-using UserProfileService.Shared.Interfaces;
 
 namespace UserProfileService.Features.UserProfileFeature.Quries.GetUserByid
 {

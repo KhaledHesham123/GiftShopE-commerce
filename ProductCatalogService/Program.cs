@@ -1,4 +1,5 @@
 using FluentValidation;
+using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -35,6 +36,20 @@ namespace ProductCatalogService
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddMassTransit(x => 
+            {
+                x.SetKebabCaseEndpointNameFormatter();
+
+                x.UsingRabbitMq((contxt, cfg) => 
+                {
+                    cfg.Host("rabbitmq", "/", h =>
+                    {
+                        h.Username("admin");
+                        h.Password("admin123");
+                    });
+                });
+            });
 
             builder.Services.AddSignalR();
             builder.Services.AddDbContext<ProductCatalogDbContext>(options =>
