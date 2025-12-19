@@ -39,6 +39,10 @@ namespace ProductCatalogService.Features.CartFeature.Queries.GetUserCart
 
             if (basket == null) return null;
 
+            var subtotal= basket.Items.Sum(x=>x.Price*x.Price);
+            decimal delivery = 5; 
+            decimal total = subtotal + delivery;
+
             return new ShoppingCartDto
             {
                 Id = basket.Id,
@@ -50,7 +54,12 @@ namespace ProductCatalogService.Features.CartFeature.Queries.GetUserCart
                     ProductImageUrl = it.ProductImageUrl,
                     ProductName = it.ProductName,
                     Quantity = it.Quantity
-                }).ToList()
+                }).ToList(),
+                Subtotal=subtotal,  
+                DeliveryFee=delivery,
+                Total=total
+                
+
             };
 
         } 
