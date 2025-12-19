@@ -25,7 +25,7 @@ namespace CartService.Shared.Middlewars
                 var messageString = string.Join(" | ", errorMessages);
 
 
-                var response = RequestRespones<string>.Fail(Message: messageString, statuscode: 400);
+                var response = RequestRespones<string>.Fail(message: messageString, statuscode: 400);
 
                 context.Response.StatusCode = StatusCodes.Status400BadRequest;
                 context.Response.ContentType = "application/json";
@@ -36,7 +36,7 @@ namespace CartService.Shared.Middlewars
             {
                 logger.LogError(ex, "System Error");
 
-                var response = RequestRespones<string>.Fail(Message: "Something went wrong", statuscode: 500);
+                var response = RequestRespones<string>.Fail(message: "Something went wrong", statuscode: 500);
 
                 context.Response.StatusCode = StatusCodes.Status500InternalServerError;
                 context.Response.ContentType = "application/json";

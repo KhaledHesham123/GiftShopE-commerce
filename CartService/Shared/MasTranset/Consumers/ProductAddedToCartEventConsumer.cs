@@ -33,7 +33,7 @@ namespace CartService.Shared.MasTranset.Consumers
                 ProductImageUrl: message.ProductImageUrl,
                 Quantity: message.Quantity));
 
-            if (!addProductToCartReslut.Success)
+            if (!addProductToCartReslut.IsSuccess)
             {
                 throw new Exception(addProductToCartReslut.Message);
 

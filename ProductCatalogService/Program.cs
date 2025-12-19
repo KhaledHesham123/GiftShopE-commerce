@@ -1,3 +1,4 @@
+using CartService.Shared.basketRepository;
 using FluentValidation;
 using MassTransit;
 using MediatR;
@@ -5,12 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProductCatalogService.Data.DBContexts;
 using ProductCatalogService.Data.Seeders;
+using ProductCatalogService.Features.CartFeature;
 using ProductCatalogService.Features.OccasionFeatures;
 using ProductCatalogService.Features.OccasionFeatures.Add.AddOccasion.Dto;
 using ProductCatalogService.Features.OccasionFeatures.Add.AddOccasionQr;
+using ProductCatalogService.Features.ProductFeatures;
 using ProductCatalogService.Features.Shared;
 using ProductCatalogService.Features.Shared.Queries.CheckExist;
 using ProductCatalogService.Features.Shared.Queries.GetByCriteria;
+using ProductCatalogService.Shared.basketRepository;
 using ProductCatalogService.Shared.Behaviors;
 using ProductCatalogService.Shared.Entities;
 using ProductCatalogService.Shared.Extenstions;
@@ -19,6 +23,7 @@ using ProductCatalogService.Shared.Hup;
 using ProductCatalogService.Shared.Interfaces;
 using ProductCatalogService.Shared.Middlewares;
 using ProductCatalogService.Shared.Repositories;
+using StackExchange.Redis;
 
 namespace ProductCatalogService
 {
@@ -59,6 +64,8 @@ namespace ProductCatalogService
             builder.Services.AddScoped<IAddOccasionQr, AddOccasionQr>();
             builder.Services.AddScoped<IImageHelper, ImageHelper>();
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            builder.Services.AddScoped<IbasketRepository, BasketRepository>();
+
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             //builder.Services.AddValidatorsFromAssembly(typeof(RegisterCommand).Assembly);
@@ -71,6 +78,11 @@ namespace ProductCatalogService
                 option.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
             }));
             builder.Services.AddHttpContextAccessor();
+
+            builder.Services.AddSingleton<IConnectionMultiplexer>(x =>
+            {
+                return ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("RedisConnection")!);
+            });
             #region Register Generic Handlers dynamically
 
             var entityAssembly = typeof(Category).Assembly; // adjust if entities in different assembly
@@ -96,6 +108,8 @@ namespace ProductCatalogService
             app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.MapOccasionEndpoints();
+            app.MapProductFeatureEndpoints();
+            app.MapCartFeatureEndpoints();
 
             // Seed
             using (var scope = app.Services.CreateScope())

@@ -57,7 +57,7 @@ namespace CartService.Feature.ShoppingCartFeature.Commands.addtProducToCart
                 return RequestRespones<bool>.Fail("error while adding to Basket", 400);
             }
 
-            return RequestRespones<bool>.success(true);
+            return RequestRespones<bool>.Success(true);
         }
     }
 }
