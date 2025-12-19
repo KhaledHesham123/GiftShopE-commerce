@@ -1,6 +1,12 @@
-﻿namespace CartService.Shared.Respones
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CartService.Respones
 {
-    public  class RequestRespones<T>
+    public class EndpointRespones<T>
     {
         public bool IsSuccess { get; set; }
         public string? Message { get; set; }
@@ -9,14 +15,14 @@
         public int StatusCode { get; set; }
 
 
-        public static RequestRespones<T> Result(bool IsSuccess, string message = "")
+        public static EndpointRespones<T> Result(bool IsSuccess)
         {
-            return new RequestRespones<T> { IsSuccess = IsSuccess };
+            return new EndpointRespones<T> { IsSuccess = IsSuccess };
         }
 
-        public static RequestRespones<T> Success(T data, string? message = null, int statusCode = 200)
+        public static EndpointRespones<T> Success(T data, string? message = null, int statusCode = 200)
         {
-            return new RequestRespones<T>
+            return new EndpointRespones<T>
             {
                 IsSuccess = true,
                 Data = data,
@@ -24,9 +30,9 @@
                 StatusCode = statusCode
             };
         }
-        public static RequestRespones<T> Fail(string message = "", int statuscode = 400, List<string>? Errors = null)
+        public static EndpointRespones<T> Fail(string message = "", List<string>? Errors = null, int statuscode = 400)
         {
-            return new RequestRespones<T>
+            return new EndpointRespones<T>
             {
                 Errors = Errors,
                 IsSuccess = false,
@@ -34,5 +40,6 @@
                 Message = message
             };
         }
+
     }
 }

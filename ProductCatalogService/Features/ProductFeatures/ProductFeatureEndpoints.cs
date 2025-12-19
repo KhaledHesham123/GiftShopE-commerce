@@ -4,7 +4,7 @@ namespace ProductCatalogService.Features.ProductFeatures
 {
     public static class ProductFeatureEndpoints
     {
-        public static IEndpointRouteBuilder MapAuthanticationEndpoints(this IEndpointRouteBuilder app)
+        public static IEndpointRouteBuilder MapProductFeatureEndpoints(this IEndpointRouteBuilder app)
         {
             app.MapAddProductToCartEndpoint();
 
