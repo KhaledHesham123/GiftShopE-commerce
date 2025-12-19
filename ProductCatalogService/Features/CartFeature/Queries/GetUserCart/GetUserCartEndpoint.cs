@@ -6,7 +6,7 @@ namespace ProductCatalogService.Features.CartFeature.Queries.GetUserCart
     {
         public static IEndpointRouteBuilder MapGetUserCartByidEndpoint(this IEndpointRouteBuilder app)
         {
-            app.MapGet("/users/{id}/cart\"", async (Guid id, IMediator mediator) =>
+            app.MapGet("/users/getcart", async (Guid id, IMediator mediator) =>
             {
                 var response = await mediator.Send(new GetUserCartCommand(id));
 

@@ -1,6 +1,7 @@
 ﻿using CartService.Feature.ShoppingCartFeature.Commands.addtProducToCart;
 using MassTransit;
 using MediatR;
+using ProductCatalogService.Shared.MasTranset.Events;
 
 namespace CartService.Shared.MasTranset.Consumers
 {

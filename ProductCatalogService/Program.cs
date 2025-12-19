@@ -105,7 +105,7 @@ namespace ProductCatalogService
             #endregion
             
             var app = builder.Build();
-            app.UseMiddleware<ExceptionHandlingMiddleware>();
+            //app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.MapOccasionEndpoints();
             app.MapProductFeatureEndpoints();
@@ -118,7 +118,7 @@ namespace ProductCatalogService
                 try
                 {
                     var context = services.GetRequiredService<ProductCatalogDbContext>();
-                    await DataSeeder.SeedAsync(context);
+                    //await DataSeeder.SeedAsync(context);
                 }
                 catch (Exception ex)
                 {
@@ -135,7 +135,7 @@ namespace ProductCatalogService
             }
 
             //
-            app.UseMiddleware<ExceptionHandlingMiddleware>();
+            //app.UseMiddleware<ExceptionHandlingMiddleware>();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

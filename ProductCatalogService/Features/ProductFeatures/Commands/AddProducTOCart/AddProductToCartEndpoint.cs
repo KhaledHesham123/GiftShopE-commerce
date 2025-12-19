@@ -6,7 +6,7 @@ namespace ProductCatalogService.Features.ProductFeatures.Commands.AddProducTOCar
     {
         public static IEndpointRouteBuilder MapAddProductToCartEndpoint(this IEndpointRouteBuilder app)
         {
-            app.MapPost("/users/Edit", async (AddProductToCartDTo Modle, IMediator mediator) =>
+            app.MapPost("/users/AddProductsToCart", async (AddProductToCartDTo Modle, IMediator mediator) =>
             {
                 var response = await mediator.Send(new AddProductToCartCommand(Modle.userid,Modle.ProductId,Modle.Quantity));
 

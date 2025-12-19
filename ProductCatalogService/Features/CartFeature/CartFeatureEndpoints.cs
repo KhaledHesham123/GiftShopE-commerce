@@ -1,4 +1,5 @@
-﻿using ProductCatalogService.Features.ProductFeatures.Commands.AddProducTOCart;
+﻿using ProductCatalogService.Features.CartFeature.Queries.GetUserCart;
+using ProductCatalogService.Features.ProductFeatures.Commands.AddProducTOCart;
 
 namespace ProductCatalogService.Features.CartFeature
 {
@@ -6,7 +7,7 @@ namespace ProductCatalogService.Features.CartFeature
     {
         public static IEndpointRouteBuilder MapCartFeatureEndpoints(this IEndpointRouteBuilder app)
         {
-            app.MapAddProductToCartEndpoint();
+            app.MapGetUserCartByidEndpoint();
 
             return app;
         }

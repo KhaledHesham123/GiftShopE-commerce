@@ -1,4 +1,4 @@
-﻿namespace CartService.Shared.MasTranset
+﻿namespace ProductCatalogService.Shared.MasTranset.Events
 {
     public class ProductAddedToCartEvent
     {
