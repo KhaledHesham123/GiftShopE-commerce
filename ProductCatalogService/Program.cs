@@ -59,7 +59,7 @@ namespace ProductCatalogService
             builder.Services.AddSignalR();
             builder.Services.AddDbContext<ProductCatalogDbContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("ProductCatalogDatabase"));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("ProductDatabase"));
             });
             builder.Services.AddScoped<IAddOccasionQr, AddOccasionQr>();
             builder.Services.AddScoped<IImageHelper, ImageHelper>();
@@ -103,7 +103,13 @@ namespace ProductCatalogService
                 typeof(Result<Guid>),
                 typeof(Guid));
             #endregion
-            
+
+            builder.Services.AddHttpClient("CartService", client =>
+            {
+                client.BaseAddress = new Uri(builder.Configuration["Services:cartservice"]!);
+                client.Timeout = TimeSpan.FromSeconds(10);
+            });
+
             var app = builder.Build();
             app.UseMiddleware<ExceptionHandlingMiddleware>();
 
@@ -143,7 +149,7 @@ namespace ProductCatalogService
                 c.RoutePrefix = string.Empty; // يفتح Swagger على /
             });
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseCors("myPolicy");
             app.UseAuthorization();
             app.UseMiddleware<TransactionMiddleware>();
