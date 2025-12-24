@@ -18,12 +18,26 @@ namespace OrderService.Shared.UIitofwork
             return await _dbContext.SaveChangesAsync();
         }
 
-        public async Task BeginTransactionAsync()
+     
+        public void Dispose()
         {
-            _Transaction = await _dbContext.Database.BeginTransactionAsync();
+            _Transaction?.Dispose();
+            // Don't dispose DbContext - it's managed by DI container
         }
 
-        public async Task CommitTransactionAsync()
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            return await _dbContext.SaveChangesAsync();
+
+        }
+
+        public async Task BeginTransactionAsync(CancellationToken cancellationToken = default)
+        {
+            _Transaction = await _dbContext.Database.BeginTransactionAsync();
+
+        }
+
+        public async Task CommitTransactionAsync(CancellationToken cancellationToken = default)
         {
             if (_Transaction != null)
             {
@@ -33,7 +47,7 @@ namespace OrderService.Shared.UIitofwork
             }
         }
 
-        public async Task RollbackTransactionAsync()
+        public async Task RollbackTransactionAsync(CancellationToken cancellationToken = default)
         {
             if (_Transaction != null)
             {
@@ -41,12 +55,6 @@ namespace OrderService.Shared.UIitofwork
                 await _Transaction.DisposeAsync();
                 _Transaction = null;
             }
-
-        }
-        public void Dispose()
-        {
-            _Transaction?.Dispose();
-            _dbContext.Dispose();
         }
     }
 }

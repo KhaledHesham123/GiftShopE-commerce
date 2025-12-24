@@ -35,7 +35,7 @@ namespace ProductCatalogService.Features.ProductFeatures.Commands.UpdateCartProd
 
             }
 
-            var isUpdated = await UpdatePeoductQuantaty(request.userid, Product.Id, request.newQuantity);
+            var isUpdated = await UpdatePeoductQuantaty(Product.Id, request.userid, request.newQuantity);
 
             if (!isUpdated)
                 return Result<bool>.FailResponse("Error while updating product quantity in cart service");

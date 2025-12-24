@@ -12,7 +12,7 @@ using OrderService.Data.DBContexts;
 namespace OrderService.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251223003142_intialCreate1")]
+    [Migration("20251224190502_intialCreate1")]
     partial class intialCreate1
     {
         /// <inheritdoc />
@@ -30,9 +30,6 @@ namespace OrderService.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
 
                     b.Property<double?>("CurrentLat")
                         .HasColumnType("float");
@@ -84,9 +81,6 @@ namespace OrderService.Data.Migrations
                     b.Property<decimal>("SubTotal")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("TotalAmount")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
@@ -101,16 +95,13 @@ namespace OrderService.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<Guid>("OrderId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("PriceAtPurchase")
+                    b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<Guid>("ProductId")
@@ -137,9 +128,6 @@ namespace OrderService.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("ChangedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")

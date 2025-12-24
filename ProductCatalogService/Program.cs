@@ -111,7 +111,7 @@ namespace ProductCatalogService
             });
 
             var app = builder.Build();
-            app.UseMiddleware<ExceptionHandlingMiddleware>();
+            //app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.MapOccasionEndpoints();
             app.MapProductFeatureEndpoints();
@@ -141,7 +141,8 @@ namespace ProductCatalogService
             }
 
             //
-            app.UseMiddleware<ExceptionHandlingMiddleware>();
+            //app.UseMiddleware<ExceptionHandlingMiddleware>();
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

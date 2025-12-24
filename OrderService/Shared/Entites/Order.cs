@@ -1,4 +1,6 @@
-﻿namespace OrderService.Shared.Entites
+﻿using System.Runtime.Serialization;
+
+namespace OrderService.Shared.Entites
 {
 
     public enum OrderStatus
@@ -8,6 +10,15 @@
         OutForDelivery = 3,
         Delivered = 4,
         Cancelled = 5
+    }
+
+    public enum PaymentMethods
+    {
+        
+        [EnumMember(Value = "CashonDelivery")]
+        CashonDelivery = 1,
+        [EnumMember(Value = "CreditCard")]
+        CreditCard = 2
     }
     public class Order:BaseEntity
     {
@@ -21,10 +32,9 @@
 
         public decimal SubTotal { get; set; }
         public decimal DeliveryFee { get; set; }
-        public decimal TotalAmount { get; set; }
-        public int PointsRedeemed { get; set; } 
+        public int PointsRedeemed { get; set; }
 
-        public string PaymentMethod { get; set; } 
+        public PaymentMethods PaymentMethod { get; set; } = PaymentMethods.CreditCard;
         public OrderStatus Status { get; set; }
 
         public string? DeliveryHeroName { get; set; }

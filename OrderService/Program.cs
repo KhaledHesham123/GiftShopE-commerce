@@ -22,7 +22,10 @@ namespace OrderService
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers().AddJsonOptions(options => 
+            {
+                options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+            });
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
@@ -43,7 +46,8 @@ namespace OrderService
             builder.Services.AddSignalR();
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("OrderDatabase"));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("OrderDatabase"), 
+                    sqlOptions => sqlOptions.CommandTimeout(30));
             });
 
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
@@ -51,8 +55,15 @@ namespace OrderService
 
 
             builder.Services.AddScoped<IUnitofWork, UnitofWork>();
+            
+            builder.Services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
+            });
+            
             //builder.Services.AddValidatorsFromAssembly(typeof(RegisterCommand).Assembly);
             builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionBehavior<,>));
 
             builder.Services.AddTransient<GlobalExceptionHandler>();
 

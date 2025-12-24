@@ -24,7 +24,7 @@ namespace CartService.Feature.ShoppingCartFeature.Commands.Updateproductquantity
             {
                 return EndpointRespones<bool>.Success(true);
             }
-            return EndpointRespones<bool>.Fail(UpdateProductQuantityResult.Message??"som this wronge");
+            return EndpointRespones<bool>.Fail(UpdateProductQuantityResult.Message??"some thing went wronge");
         }
     }
     public class UpdateProductDto {

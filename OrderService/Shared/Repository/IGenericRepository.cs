@@ -21,7 +21,7 @@ namespace OrderService.Shared.Repository
         Task<int> CountAsync(Expression<Func<T, bool>> predicate);
         Task<T?> GetByCriteriaAsync(Expression<Func<T, bool>> predicate);
         void SaveInclude(T entity);
-        Task SaveChangesAsync();
+        Task<int> SaveChangesAsync();
         IQueryable<T> GetQueryableByCriteriaAndInclude(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeExpressions);
     }
 }

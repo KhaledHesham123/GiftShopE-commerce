@@ -105,9 +105,9 @@ namespace IdentityService.Shared.Repository
             _dbSet.Update(entity);
         }
 
-        public async Task SaveChangesAsync()
+        public async Task<int> SaveChangesAsync()
         {
-            await applicationDbcontext.SaveChangesAsync();
+            return await applicationDbcontext.SaveChangesAsync();
         }
 
         public async Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate)

@@ -6,7 +6,7 @@ namespace CartService.Feature.ShoppingCartFeature.Quries.GetUserCartByid
     {
         public static IEndpointRouteBuilder MapGetUserCartByidEndpoint(this IEndpointRouteBuilder app)
         {
-            app.MapGet("/users/{id}/cart\"", async (string id, IMediator mediator) =>
+            app.MapGet("/users/{id}/cart", async (string id, IMediator mediator) =>
             {
                 var response = await mediator.Send(new GetUserCartByidQuery(id));
 

@@ -8,6 +8,9 @@ namespace OrderService.Data.Configrations
     {
         public void Configure(EntityTypeBuilder<Order> builder)
         {
+            builder.Property(x => x.PaymentMethod).HasConversion<string>();
+
+
             builder.HasMany(o => o.OrderItems)
                    .WithOne()
                    .HasForeignKey(oi => oi.OrderId)
