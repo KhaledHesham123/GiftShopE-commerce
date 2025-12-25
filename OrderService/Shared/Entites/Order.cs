@@ -5,10 +5,15 @@ namespace OrderService.Shared.Entites
 
     public enum OrderStatus
     {
+        [EnumMember(Value = "Received")]
         Received = 1,
+        [EnumMember(Value = "Preparing")]
         Preparing = 2,
+        [EnumMember(Value = "OutForDelivery")]
         OutForDelivery = 3,
+        [EnumMember(Value = "Delivered")]
         Delivered = 4,
+        [EnumMember(Value = "Cancelled")]
         Cancelled = 5
     }
 
@@ -18,7 +23,8 @@ namespace OrderService.Shared.Entites
         [EnumMember(Value = "CashonDelivery")]
         CashonDelivery = 1,
         [EnumMember(Value = "CreditCard")]
-        CreditCard = 2
+        CreditCard = 2,
+        
     }
     public class Order:BaseEntity
     {
@@ -42,7 +48,9 @@ namespace OrderService.Shared.Entites
         public double? CurrentLat { get; set; }
         public double? CurrentLng { get; set; }
 
+        public DateTime? EstimatedArrivalTime { get; set; }
+
         public IEnumerable<OrderItem> OrderItems { get; set; }= new HashSet<OrderItem>();
-        public IEnumerable<OrderStatusLog> StatusHistory { get; set; } = new HashSet<OrderStatusLog>();
+        public ICollection<OrderStatusLog> StatusHistory { get; set; } = new HashSet<OrderStatusLog>();
     }
 }
