@@ -5,7 +5,7 @@ using OrderService.Shared.Repository;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace IdentityService.Shared.Repository
+namespace OrderService.Shared.Repository
 {
     public class GenericRepository<T>: IGenericRepository<T>where T : BaseEntity
     {

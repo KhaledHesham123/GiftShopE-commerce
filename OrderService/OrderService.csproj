@@ -34,6 +34,7 @@
 
   <ItemGroup>
     <Folder Include="Data\Migrations\" />
+    <Folder Include="Shared\Interfaces\" />
   </ItemGroup>
 
 </Project>

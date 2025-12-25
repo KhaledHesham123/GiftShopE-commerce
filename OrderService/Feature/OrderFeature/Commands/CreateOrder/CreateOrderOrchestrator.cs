@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using OrderService.Respones;
 using OrderService.Shared.Entites;
-using OrderService.Shared.Interfaces;
+using OrderService.Shared;
 using OrderService.Shared.Repository;
 using ProductCatalogService.Shared.basketRepository;
 
@@ -15,7 +15,7 @@ namespace OrderService.Feature.OrderFeature.Commands.CreateOrder
     PaymentMethods PaymentMethod,
     int PointsRedeemed,
     double? CurrentLat,
-    double? CurrentLng):ICommand<RequestRespones<OrderToReturnDto>>;
+    double? CurrentLng):IRequest<RequestRespones<OrderToReturnDto>>;
 
     public class CreateOrderOrchestratorHandler:IRequestHandler<CreateOrderOrchestrator,RequestRespones<OrderToReturnDto>>
     {

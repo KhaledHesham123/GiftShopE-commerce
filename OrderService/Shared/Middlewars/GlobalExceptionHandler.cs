@@ -17,7 +17,7 @@ namespace OrderService.Shared.Middlewars
         {
             try
             {
-                next(context);
+                await next(context);
             }
             catch (ValidationException ex)
             {

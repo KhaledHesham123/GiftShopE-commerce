@@ -1,5 +1,5 @@
 
-using IdentityService.Shared.Repository;
+using OrderService.Shared.Repository;
 using MassTransit;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -44,10 +44,11 @@ namespace OrderService
             });
 
             builder.Services.AddSignalR();
+
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("OrderDatabase"), 
-                    sqlOptions => sqlOptions.CommandTimeout(30));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("OrderDatabase"));
+
             });
 
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
@@ -62,6 +63,7 @@ namespace OrderService
             });
             
             //builder.Services.AddValidatorsFromAssembly(typeof(RegisterCommand).Assembly);
+
             builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionBehavior<,>));
 
