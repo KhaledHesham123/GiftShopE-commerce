@@ -1,11 +1,12 @@
 ﻿using MediatR;
 using OrderService.Respones;
 using OrderService.Shared.Entites;
+using OrderService.Shared.Interface;
 using OrderService.Shared.Repository;
 
 namespace OrderService.Feature.OrderFeature.Commands.CreateOrder
 {
-    public record CreateOrderCommand(Order Order):IRequest<RequestRespones<bool>>;
+    public record CreateOrderCommand(Order Order): IRequest<RequestRespones<bool>>;
 
     public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, RequestRespones<bool>>
     {

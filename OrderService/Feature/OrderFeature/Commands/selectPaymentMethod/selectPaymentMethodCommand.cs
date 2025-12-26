@@ -1,13 +1,15 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using OrderService.Feature.OrderFeature.Commands.CreateOrder;
+using OrderService.Feature.OrderIemsFeature.Command.AddOrderItems;
 using OrderService.Respones;
 using OrderService.Shared.Entites;
+using OrderService.Shared.Interface;
 using OrderService.Shared.Repository;
 
 namespace OrderService.Feature.OrderFeature.Commands.selectPaymentMethod
 {
-    public record selectPaymentMethodCommand(Guid orderid,PaymentMethods PaymentMethods):IRequest<RequestRespones<OrderToReturnDto>>;
+    public record selectPaymentMethodCommand(Guid orderid,PaymentMethods PaymentMethods): ICommand<RequestRespones<OrderToReturnDto>>;
 
     public class selectPaymentMethodCommandHandler : IRequestHandler<selectPaymentMethodCommand, RequestRespones<OrderToReturnDto>>
     {

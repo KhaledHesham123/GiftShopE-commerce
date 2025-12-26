@@ -1,7 +1,9 @@
 ﻿using MediatR;
+using OrderService.Feature.OrderIemsFeature.Command.AddOrderItems;
 using OrderService.Respones;
-using OrderService.Shared.Entites;
 using OrderService.Shared;
+using OrderService.Shared.Entites;
+using OrderService.Shared.Interface;
 using OrderService.Shared.Repository;
 using ProductCatalogService.Shared.basketRepository;
 
@@ -15,7 +17,7 @@ namespace OrderService.Feature.OrderFeature.Commands.CreateOrder
     PaymentMethods PaymentMethod,
     int PointsRedeemed,
     double? CurrentLat,
-    double? CurrentLng):IRequest<RequestRespones<OrderToReturnDto>>;
+    double? CurrentLng): ICommand<RequestRespones<OrderToReturnDto>>;
 
     public class CreateOrderOrchestratorHandler:IRequestHandler<CreateOrderOrchestrator,RequestRespones<OrderToReturnDto>>
     {
@@ -61,7 +63,8 @@ namespace OrderService.Feature.OrderFeature.Commands.CreateOrder
                 Status = OrderStatus.Preparing,
                 OrderNumber = GenerateOrderNumber(),
                 SubTotal = basket.Items.Sum(item => item.Quantity * item.Price),
-                OrderItems = orderItems
+                OrderItems = orderItems,
+                
 
             };
 
@@ -81,7 +84,7 @@ namespace OrderService.Feature.OrderFeature.Commands.CreateOrder
                 return RequestRespones<OrderToReturnDto>.Fail("Failed to save the order to database.", 500);
           
         }
-        private string GenerateOrderNumber()
+        public string GenerateOrderNumber()
         {
             return $"{Random.Shared.Next(1000, 10000)}";
         }

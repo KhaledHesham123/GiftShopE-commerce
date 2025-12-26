@@ -3,12 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using OrderService.Feature.OrderFeature.Commands.UpdateOrderStatus.DTOs;
 using OrderService.Respones;
 using OrderService.Shared.Entites;
+using OrderService.Shared.Interface;
 using OrderService.Shared.Repository;
 
 namespace OrderService.Feature.OrderFeature.Commands.UpdateOrderStatus
 {
     public record UpdateOrderStatusCommand(Guid orderid, OrderStatus orderStatus, string? DeliveryHeroName, string? DeliveryHeroContact,
-          double? CurrentLat, double? CurrentLng, DateTime? EstimatedArrivalTime) : IRequest<RequestRespones<OrderTrackingToReturnDto>>;
+          double? CurrentLat, double? CurrentLng, DateTime? EstimatedArrivalTime) : ICommand<RequestRespones<OrderTrackingToReturnDto>>;
 
     public class UpdateOrderStatusCommandHandler : IRequestHandler<UpdateOrderStatusCommand, RequestRespones<OrderTrackingToReturnDto>>
     {
