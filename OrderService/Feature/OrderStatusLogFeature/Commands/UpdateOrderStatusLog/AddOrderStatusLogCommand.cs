@@ -2,11 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using OrderService.Respones;
 using OrderService.Shared.Entites;
+using OrderService.Shared.Interface;
 using OrderService.Shared.Repository;
 
 namespace OrderService.Feature.OrderStatusLogFeature.Commands.UpdateOrderStatusLog
 {
-    public record AddOrderStatusLogCommand(Guid OrderId, OrderStatus Status, DateTime ChangedAt) :IRequest<RequestRespones<OrderStatusLogDto>>;
+    public record AddOrderStatusLogCommand(Guid OrderId, OrderStatus Status, DateTime ChangedAt) : ICommand<RequestRespones<OrderStatusLogDto>>;
 
     public class AddOrderStatusLogCommandHandler : IRequestHandler<AddOrderStatusLogCommand, RequestRespones<OrderStatusLogDto>>
     {

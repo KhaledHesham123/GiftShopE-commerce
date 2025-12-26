@@ -7,7 +7,6 @@ using OrderService.Data.DBContexts;
 using OrderService.Shared.basketRepository;
 using OrderService.Shared.Behavior;
 using OrderService.Shared.Middlewars;
-using OrderService.Shared.Repository;
 using OrderService.Shared.UIitofwork;
 using ProductCatalogService.Shared.basketRepository;
 using StackExchange.Redis;
@@ -72,6 +71,12 @@ namespace OrderService
             builder.Services.AddSingleton<IConnectionMultiplexer>(x =>
             {
                 return ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("RedisConnection")!);
+            });
+
+            builder.Services.AddHttpClient("ProductService", c =>
+            {
+                c.BaseAddress = new Uri(builder.Configuration["Services:productcatalogservice"]!);
+                c.Timeout = TimeSpan.FromSeconds(30);
             });
 
 
