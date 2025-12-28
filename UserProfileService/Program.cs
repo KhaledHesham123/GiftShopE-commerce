@@ -17,7 +17,7 @@ namespace ProductCatalogService
             builder.Services.AddOpenApi();
             builder.Services.AddDbContext<UserProfileDbContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("UserProfileDatabase"));
             });
 
             builder.Services.AddMemoryCache();
