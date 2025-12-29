@@ -7,7 +7,7 @@ namespace ProductCatalogService.Features.CategoryFeatures.Queries.ExploreCategor
     {
         public static IEndpointRouteBuilder MapGetAllCategoriesEndpoint(this IEndpointRouteBuilder app)
         {
-            app.MapPost("/Categoy/GetAll", async ( IMediator mediator) =>
+            app.MapGet("/Categoy/GetAll", async ( IMediator mediator) =>
             {
                 var response = await mediator.Send(new GetAllCategoriesQuery());
 
