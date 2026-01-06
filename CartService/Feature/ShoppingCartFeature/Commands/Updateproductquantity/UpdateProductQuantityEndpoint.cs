@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CartService.Feature.ShoppingCartFeature.Commands.Updateproductquantity
 {
-    [Route("api/[controller]")]
+    [Route("api/Cart")]
     [ApiController]
     public class UpdateProductQuantityEndpoint : ControllerBase
     {
@@ -16,7 +16,7 @@ namespace CartService.Feature.ShoppingCartFeature.Commands.Updateproductquantity
             this.mediator = mediator;
         }
 
-        [HttpPost]
+        [HttpPost("updateProductQuantityInUserBasket")]
         public async Task<ActionResult<EndpointRespones<bool>>> updateProductQuantityInUserBasket(UpdateProductDto modle)  
         {
             var UpdateProductQuantityResult = await mediator.Send(new UpdateProductQuantityCommand(modle.Basketid, modle.newQuantity, modle.ProductId));

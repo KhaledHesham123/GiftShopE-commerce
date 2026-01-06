@@ -49,7 +49,7 @@ namespace ProductCatalogService.Features.ProductFeatures.Commands.UpdateCartProd
 
             try
             {
-                var response = await httpclient.PostAsJsonAsync("api/UpdateProductQuantityEndpoint", new
+                var response = await httpclient.PostAsJsonAsync("api/Cart/updateProductQuantityInUserBasket", new
                 {
                     Basketid = userid,
                     ProductId = productid,
