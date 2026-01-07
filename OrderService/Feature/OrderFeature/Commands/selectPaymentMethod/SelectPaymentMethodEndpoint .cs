@@ -6,7 +6,7 @@ using OrderService.Respones;
 
 namespace OrderService.Feature.OrderFeature.Commands.selectPaymentMethod
 {
-    [Route("api/[controller]")]
+    [Route("api/Order")]
     [ApiController]
     public class SelectPaymentMethodEndpoint   : ControllerBase
     {
@@ -16,7 +16,7 @@ namespace OrderService.Feature.OrderFeature.Commands.selectPaymentMethod
         {
             this.mediator = mediator;
         }
-        [HttpPost] // POST api/order/SelectPaymentMethod
+        [HttpPost("SelectPaymentMethod")] // POST api/order/SelectPaymentMethod
         public async Task<ActionResult<EndpointRespones<OrderToReturnDto>>> SelectPaymentMethod([FromBody]selectPaymentMethodViewModle modle) 
         {
             var result = await mediator.Send(new selectPaymentMethodCommand(modle.orderid, modle.PaymentMethods));

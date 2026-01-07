@@ -6,7 +6,7 @@ using OrderService.Respones;
 
 namespace OrderService.Feature.OrderFeature.Commands.ReOrder
 {
-    [Route("api/order")]
+    [Route("api/Order")]
     [ApiController]
     public class ReOrderEndpoint : ControllerBase
     {

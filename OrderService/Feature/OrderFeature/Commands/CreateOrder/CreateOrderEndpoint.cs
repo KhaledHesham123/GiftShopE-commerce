@@ -15,7 +15,7 @@ namespace OrderService.Feature.OrderFeature.Commands.CreateOrder
         {
             this.mediator = mediator;
         }
-        [HttpPost("Create")]
+        [HttpPost("CreateOrder")]
         public async Task<ActionResult<EndpointRespones<OrderToReturnDto>>> CreateOrder(CreateOrderViewModel model)
         {
             var result = await mediator.Send( new CreateOrderOrchestrator(

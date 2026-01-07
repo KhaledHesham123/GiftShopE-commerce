@@ -1,29 +1,43 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using UserProfileService.Features.UserProfileFeature.DTOs;
 
 namespace UserProfileService.Features.UserProfileFeature.Commands.EditUserProfile
 {
-    public static class EditUserProfileEndpoint
+    [ApiController]
+    [Route("api/Profile")] 
+    public class EditUserProfileEndpoint : ControllerBase
     {
-        public static IEndpointRouteBuilder MapEditUserProfileEndpoint(this IEndpointRouteBuilder app)
+        private readonly IMediator _mediator;
+
+        public EditUserProfileEndpoint(IMediator mediator)
         {
-            app.MapPost("/users/Edit", async (EditUserProfileDto Modle, IMediator mediator) =>
+            _mediator = mediator;
+        }
+
+        [HttpPost("Edit")] 
+        public async Task<IActionResult> EditUserProfile([FromBody] EditUserProfileDto model)
+        {
+            var response = await _mediator.Send(new EditUserProfileCommand(
+                model.userid,
+                model.FirstName,
+                model.LastName,
+                model.Gender,
+                model.ProfileImageUrl));
+
+            if (!response.IsSuccess)
             {
-                var response = await mediator.Send(new EditUserProfileCommand(Modle.userid,Modle.FirstName,Modle.LastName,Modle.Gender,Modle.ProfileImageUrl));
+                var errorDetail = string.Join("| ", response.Errors?.Any() == true
+                    ? response.Errors
+                    : new[] { response.Message ?? "Failed to update profile" });
 
-                if (!response.IsSuccess)
-                {
-                    return Results.Problem(
-                        detail: string.Join("| ", response.Errors.Any() ? response.Errors : new[] { response.Message ?? "" }),
-                        statusCode: response.StatusCode
-                    );
-                }
+                return Problem(
+                    detail: errorDetail,
+                    statusCode: response.StatusCode
+                );
+            }
 
-                return Results.Ok(response);
-
-            });
-            return app;
-
+            return Ok(response);
         }
     }
 }

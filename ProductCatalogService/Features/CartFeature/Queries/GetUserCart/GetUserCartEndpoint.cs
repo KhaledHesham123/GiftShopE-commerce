@@ -1,27 +1,38 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ProductCatalogService.Features.CartFeature.Queries.GetUserCart
 {
-    public static class GetUserCartEndpoint
+
+    [ApiController]
+    [Route("api/users")]
+    public class GetUserCartEndpoint : ControllerBase
     {
-        public static IEndpointRouteBuilder MapGetUserCartByidEndpoint(this IEndpointRouteBuilder app)
+        private readonly IMediator _mediator;
+
+        public GetUserCartEndpoint(IMediator mediator)
         {
-            app.MapGet("/users/getcart", async (Guid id, IMediator mediator) =>
+            _mediator = mediator;
+        }
+
+        [HttpGet("getcartbyid")]
+        public async Task<IActionResult> GetUserCart([FromQuery] Guid id)
+        {
+            var response = await _mediator.Send(new GetUserCartCommand(id));
+
+            if (!response.Success)
             {
-                var response = await mediator.Send(new GetUserCartCommand(id));
+                var errorDetail = string.Join("| ", response.Errors.Any()
+                    ? response.Errors
+                    : new[] { response.Message ?? "An error occurred" });
 
-                if (!response.Success)
-                {
-                    return Results.Problem(
-                        detail: string.Join("| ", response.Errors.Any() ? response.Errors : new[] { response.Message ?? "" }),
-                        statusCode: response.StatusCode
-                    );
-                }
+                return Problem(
+                    detail: errorDetail,
+                    statusCode: response.StatusCode
+                );
+            }
 
-                return Results.Ok(response);
-
-            });
-            return app;
+            return Ok(response);
         }
     }
 }

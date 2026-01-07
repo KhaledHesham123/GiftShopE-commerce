@@ -7,7 +7,7 @@ using OrderService.Respones;
 
 namespace OrderService.Feature.OrderFeature.Commands.UpdateOrderStatus
 {
-    [Route("api/order")]
+    [Route("api/Order")]
     [ApiController]
     public class UpdateOrderStatusEndpoint : ControllerBase
     {

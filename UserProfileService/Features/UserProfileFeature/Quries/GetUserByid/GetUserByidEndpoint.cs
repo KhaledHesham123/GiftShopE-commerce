@@ -1,29 +1,37 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace UserProfileService.Features.UserProfileFeature.Quries.GetUserByid
 {
-    public static class GetUserByidEndpoint
+    [ApiController]
+    [Route("api/Profile")] 
+    public class UserProfileController : ControllerBase
     {
-        public static IEndpointRouteBuilder MapGetUserByidEndpoint(this IEndpointRouteBuilder app)
+        private readonly IMediator _mediator;
+
+        public UserProfileController(IMediator mediator)
         {
-            app.MapGet("/GetUserByid/{id:guid}", async (Guid id, IMediator mediator) =>
+            _mediator = mediator;
+        }
+
+        [HttpGet("GetUserById")] 
+        public async Task<IActionResult> GetUserById([FromQuery]Guid id)
+        {
+            var response = await _mediator.Send(new GetUserByidQuery(id));
+
+            if (!response.IsSuccess)
             {
-            var response = await mediator.Send(
-                new GetUserByidQuery(id));
+                var errorDetail = string.Join("| ", response.Errors?.Any() == true
+                    ? response.Errors
+                    : new[] { response.Message ?? "User not found" });
 
-                if (!response.IsSuccess)
-                {
-                    return Results.Problem(
-                        detail: string.Join("| ", response.Errors.Any() ? response.Errors : new[] { response.Message ?? "" }),
-                        statusCode: response.StatusCode
-                    );
-                }
+                return Problem(
+                    detail: errorDetail,
+                    statusCode: response.StatusCode
+                );
+            }
 
-                return Results.Ok(response);
-
-            });
-            return app;
-
+            return Ok(response);
         }
     }
 }

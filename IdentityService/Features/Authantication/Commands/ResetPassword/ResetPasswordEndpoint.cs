@@ -1,39 +1,47 @@
 ﻿using Azure;
 using Domain_Layer.Respones;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace IdentityService.Features.Authantication.Commands.ResetPassword
 {
-    public static class ResetPasswordEndpoint
+    [ApiController]
+    [Route("api/Identity")]
+    public  class ResetPasswordEndpoint: ControllerBase
     {
-        public static IEndpointRouteBuilder MapResetPasswordEndpoint(this IEndpointRouteBuilder app)
-        {
-            app.MapPost("/resetpassword", async (ResetPasswordViewModle model, IMediator mediator) =>
+       
+       
+            private readonly IMediator _mediator;
+
+            public ResetPasswordEndpoint(IMediator mediator)
+            {
+                _mediator = mediator;
+            }
+
+            [HttpPost("reset-password")]
+            public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordViewModle model)
+            {
+                var response = await _mediator.Send(
+                    new ResetPasswordOrchestrator(
+                        model.Email,
+                        model.NewPassword,
+                        model.ConfirmPassword
+                    )
+                );
+
+                if (!response.IsSuccess)
                 {
-                    var response = await mediator.Send(
-                        new ResetPasswordOrchestrator(
-                            model.Email,
-                            model.NewPassword,
-                            model.ConfirmPassword
-                        )
+                    return Problem(
+                        detail: string.Join("| ", response.Errors.Any() ? response.Errors : new[] { response.Message ?? "" }),
+                        statusCode: response.StatusCode
                     );
+                }
 
-                    if (!response.IsSuccess)
-                    {
-                        return Results.Problem(
-                            detail: string.Join("| ", response.Errors.Any() ? response.Errors : new[] { response.Message ?? "" }),
-                            statusCode: response.StatusCode
-                        );
-                    }
-
-                    return Results.Ok(response);
-
-                });
-            return app;
-            
+                return Ok(response);
+            }
         }
-    
+
     }
-}
+
 
 

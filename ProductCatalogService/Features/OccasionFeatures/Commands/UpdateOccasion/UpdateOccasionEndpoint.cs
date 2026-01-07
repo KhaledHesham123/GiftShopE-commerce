@@ -1,29 +1,39 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ProductCatalogService.Features.OccasionFeatures.Commands.UpdateOccasion
 {
-    public static class UpdateOccasionEndpoint
+
+    [ApiController]
+    [Route("api/Occasion")] 
+    public class UpdateOccasionEndpoint : ControllerBase
     {
-        public static IEndpointRouteBuilder MapUpdateOccasionEndpoint(this IEndpointRouteBuilder app)
+        private readonly IMediator _mediator;
+
+        public UpdateOccasionEndpoint(IMediator mediator)
         {
-            app.MapPost("/forgetpassword", async (UpdateOccasionModle modle, IMediator mediator, HttpRequest request) =>
+            _mediator = mediator;
+        }
+
+        [HttpPost("updateOccasion")] 
+        public async Task<IActionResult> UpdateOccasion([FromBody] UpdateOccasionModle model)
+        {
+            var response = await _mediator.Send(new UpdateOccasionCommand(model.id, model.Name, model.Status));
+
+            if (!response.Success)
             {
-               
+                var errorDetail = string.Join("; ", response.Errors?.Any() == true
+                    ? response.Errors
+                    : new[] { response.Message ?? "An error occurred" });
 
-                var response = await mediator.Send(new UpdateOccasionCommand(modle.id,modle.Name,modle.Status));
+                return Problem(
+                    detail: errorDetail,
+                    statusCode: response.StatusCode
+                );
+            }
 
-                if (!response.Success)
-                {
-                    return Results.Problem(
-                        detail: string.Join("; ", response.Errors.Any() ? response.Errors : new[] { response.Message ?? "" }),
-                        statusCode: response.StatusCode
-                    );
-                }
-
-                return Results.Ok(response);
-            });
-
-            return app;
+            return Ok(response);
         }
     }
 }
+    

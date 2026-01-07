@@ -5,7 +5,7 @@ using OrderService.Respones;
 
 namespace OrderService.Feature.OrderFeature.Quries.TrackOrder
 {
-    [Route("api/order")]
+    [Route("api/Order")]
     [ApiController]
     public class TrackOrderEndpoint : ControllerBase
     {

@@ -1,28 +1,40 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ProductCatalogService.Features.ProductFeatures.Commands.AddProducTOCart
 {
-    public static class AddProductToCartEndpoint
+    [ApiController]
+    [Route("api/Product")] 
+    public class AddProductToCartEndpoint : ControllerBase
     {
-        public static IEndpointRouteBuilder MapAddProductToCartEndpoint(this IEndpointRouteBuilder app)
+        private readonly IMediator _mediator;
+
+        public AddProductToCartEndpoint(IMediator mediator)
         {
-            app.MapPost("/users/AddProductsToCart", async (AddProductToCartDTo Modle, IMediator mediator) =>
+            _mediator = mediator;
+        }
+
+        [HttpPost("AddToCart")] 
+        public async Task<IActionResult> AddProductToCart([FromBody] AddProductToCartDTo model)
+        {
+            var response = await _mediator.Send(new AddProductToCartCommand(
+                model.userid,
+                model.ProductId,
+                model.Quantity));
+
+            if (!response.Success)
             {
-                var response = await mediator.Send(new AddProductToCartCommand(Modle.userid,Modle.ProductId,Modle.Quantity));
+                var errorDetail = string.Join("| ", response.Errors?.Any() == true
+                    ? response.Errors
+                    : new[] { response.Message ?? "An error occurred" });
 
-                if (!response.Success)
-                {
-                    return Results.Problem(
-                        detail: string.Join("| ", response.Errors.Any() ? response.Errors : new[] { response.Message ?? "" }),
-                        statusCode: response.StatusCode
-                    );
-                }
+                return Problem(
+                    detail: errorDetail,
+                    statusCode: response.StatusCode
+                );
+            }
 
-                return Results.Ok(response);
-
-            });
-            return app;
-
+            return Ok(response);
         }
     }
 }

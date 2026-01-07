@@ -7,7 +7,6 @@ namespace ProductCatalogService.Features.CartFeature
     {
         public static IEndpointRouteBuilder MapCartFeatureEndpoints(this IEndpointRouteBuilder app)
         {
-            app.MapGetUserCartByidEndpoint();
 
             return app;
         }
