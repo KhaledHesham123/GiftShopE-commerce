@@ -34,4 +34,4 @@ namespace ProductCatalogService.Features.CategoryFeatures.Queries.ExploreCategor
         }
     }
 }
-}
+

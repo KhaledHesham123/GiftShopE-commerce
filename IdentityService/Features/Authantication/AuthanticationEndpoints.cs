@@ -9,10 +9,7 @@ namespace IdentityService.Features.Authantication
 
         public static IEndpointRouteBuilder MapAuthanticationEndpoints(this IEndpointRouteBuilder app) 
         {
-            app.MapForgetpasswordEndpoint();
-            app.MapResetPasswordEndpoint();
-            app.MapVerifyEmailCodeEndpoint();
-
+           
             return app;
         }
     }

@@ -113,8 +113,7 @@ namespace ProductCatalogService
             var app = builder.Build();
             //app.UseMiddleware<ExceptionHandlingMiddleware>();
 
-            app.MapOccasionEndpoints();
-            app.MapProductFeatureEndpoints();
+          
             app.MapCartFeatureEndpoints();
 
             // Seed
