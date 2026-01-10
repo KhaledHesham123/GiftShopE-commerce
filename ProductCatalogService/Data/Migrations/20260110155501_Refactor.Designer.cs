@@ -12,8 +12,8 @@ using ProductCatalogService.Data.DBContexts;
 namespace ProductCatalogService.Data.Migrations
 {
     [DbContext(typeof(ProductCatalogDbContext))]
-    [Migration("20251219171641_intialCreate3")]
-    partial class intialCreate3
+    [Migration("20260110155501_Refactor")]
+    partial class Refactor
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

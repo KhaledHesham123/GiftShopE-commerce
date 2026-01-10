@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace OrderService.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class intialCreate1 : Migration
+    public partial class Refactor : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,6 +31,7 @@ namespace OrderService.Data.Migrations
                     DeliveryHeroContact = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CurrentLat = table.Column<double>(type: "float", nullable: true),
                     CurrentLng = table.Column<double>(type: "float", nullable: true),
+                    EstimatedArrivalTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
