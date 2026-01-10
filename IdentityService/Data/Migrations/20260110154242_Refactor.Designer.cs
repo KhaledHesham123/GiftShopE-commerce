@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IdentityService.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbcontext))]
-    [Migration("20251212160127_DropUserPermissions")]
-    partial class DropUserPermissions
+    [Migration("20260110154242_Refactor")]
+    partial class Refactor
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -72,10 +72,15 @@ namespace IdentityService.Data.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Token")
                         .IsUnique();
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("RefreshTokens");
                 });
@@ -218,6 +223,9 @@ namespace IdentityService.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsVerified")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Token")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -225,11 +233,25 @@ namespace IdentityService.Data.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime?>("VerifiedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("UserTokens");
+                });
+
+            modelBuilder.Entity("IdentityService.Shared.Entites.RefreshToken", b =>
+                {
+                    b.HasOne("IdentityService.Shared.Entites.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("IdentityService.Shared.Entites.RolePermission", b =>
