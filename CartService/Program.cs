@@ -34,7 +34,8 @@ namespace CartService
                     cfg.Host("72.61.102.216", "/", h =>
                     {
                         h.Username("admin");
-                        h.Password("g19HBzycmCfePY6MREFm");
+                        h.Password("g19HBzycmCfePY6MREFm"); 
+
                     });
                     cfg.ReceiveEndpoint("cart-product-added-queue", e =>
                     {
