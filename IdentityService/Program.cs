@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Text;
 
 namespace IdentityService
@@ -80,18 +81,27 @@ namespace IdentityService
             builder.Services.AddAuthorization();
             builder.Services.AddMemoryCache();
             builder.Services.AddTransient<GlobalExceptionHandler>();
+
+
             builder.Services.AddMassTransit( X =>
             {
                 X.UsingRabbitMq((context, cfg) =>
                 {
-                    cfg.Host(builder.Configuration["RabbitMQ:Host"], h =>
+                    cfg.Host("72.61.102.216", "/", h =>
                     {
-                        h.Username(builder.Configuration["RabbitMQ:Username"]);
-                        h.Password(builder.Configuration["RabbitMQ:Password"]);
+                        h.Username("admin");
+                        h.Password("g19HBzycmCfePY6MREFm");
+
                     });
                     cfg.ConfigureEndpoints(context); //for all Consumers
                 });
             });
+
+
+
+         
+
+
 
             var app = builder.Build();
 
@@ -102,6 +112,8 @@ namespace IdentityService
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
+                var _dbcontext = services.GetRequiredService<ApplicationDbcontext>();
+
                 var logger = services.GetRequiredService<ILogger<Program>>();
 
                 try
@@ -115,6 +127,8 @@ namespace IdentityService
 
                         try
                         {
+                            _dbcontext.Database.Migrate();
+
                             await DataSeeder.SeedAsync(context);
                             break;
                         }

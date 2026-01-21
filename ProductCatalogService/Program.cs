@@ -24,6 +24,7 @@ using ProductCatalogService.Shared.Interfaces;
 using ProductCatalogService.Shared.Middlewares;
 using ProductCatalogService.Shared.Repositories;
 using StackExchange.Redis;
+using System;
 
 namespace ProductCatalogService
 {
@@ -120,9 +121,11 @@ namespace ProductCatalogService
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
+
                 try
                 {
                     var context = services.GetRequiredService<ProductCatalogDbContext>();
+                    context.Database.Migrate();
                     await DataSeeder.SeedAsync(context);
                 }
                 catch (Exception ex)

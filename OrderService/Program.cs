@@ -1,5 +1,4 @@
 
-using OrderService.Shared.Repository;
 using MassTransit;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -7,9 +6,11 @@ using OrderService.Data.DBContexts;
 using OrderService.Shared.basketRepository;
 using OrderService.Shared.Behavior;
 using OrderService.Shared.Middlewars;
+using OrderService.Shared.Repository;
 using OrderService.Shared.UIitofwork;
 using ProductCatalogService.Shared.basketRepository;
 using StackExchange.Redis;
+using System;
 
 namespace OrderService
 {
@@ -84,6 +85,20 @@ namespace OrderService
 
             app.UseMiddleware<GlobalExceptionHandler>();
 
+            using var scope = app.Services.CreateScope();
+            var service = scope.ServiceProvider;
+            var _dbcontext = service.GetRequiredService<ApplicationDbContext>();
+            try
+            {
+                _dbcontext.Database.Migrate();
+
+            }
+            catch (Exception ex)
+            {
+
+                var logger = service.GetRequiredService<ILogger<Program>>();
+                logger.LogError(ex, "An Error Occurred During Apply the Migration");
+            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
